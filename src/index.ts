@@ -6,7 +6,7 @@ const getModuleToLoad = (): string | undefined => location.search.split('scene='
 export const babylonInit = async (): Promise<void>  => {
     // get the module to load
     const moduleName = getModuleToLoad();
-    const createSceneModule = await getSceneModuleWithName(moduleName);
+    const createSceneModule = await getSceneModuleWithName('lostAndFound');
 
     // Execute the pretasks, if defined
     await Promise.all(createSceneModule.preTasks || []);
@@ -23,6 +23,14 @@ export const babylonInit = async (): Promise<void>  => {
         scene.render();
     });
 
+    // manage key binding
+    window.addEventListener("keydown", (ev) => {
+        // Shift+Ctrl+Alt+I
+        if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.keyCode === 73) {
+            console.log('Shift+Ctrl+Alt+I');
+            engine.displayLoadingUI();
+        }
+    });
     // Watch for browser/canvas resize events
     window.addEventListener("resize", function () {
         engine.resize();
@@ -30,5 +38,5 @@ export const babylonInit = async (): Promise<void>  => {
 }
 
 babylonInit().then(() => {
-    // scene started rendering, everything is initialized
+    console.log("scene started rendering, everything is initialized");
 });
