@@ -7,6 +7,4 @@ export default function manageMazeMaterial(mesh: AbstractMesh, scene: Scene): vo
     mazeMaterial.diffuseColor = new Color3(1, 0.5, 0.5);
 
     mesh.material = mazeMaterial;
-    
-    console.log(mesh.material);
 }
