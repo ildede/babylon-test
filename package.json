@@ -5,7 +5,11 @@
     "scripts": {
         "start": "webpack serve --config webpack.dev.js",
         "build": "webpack --config webpack.prod.js",
-        "lint": "eslint . --ext .ts,.tsx"
+        "lint": "eslint . --ext .ts,.tsx",
+
+        "build2": "webpack --config webpack.config.js",
+        "start2": "webpack serve --config webpack.config.js",
+        "start:dev": "webpack-dev-server --config webpack.config.js --watch --mode=development --inline"
     },
     "dependencies": {
         "@babylonjs/core": "4.2.0",

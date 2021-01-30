@@ -1,50 +1,9 @@
-import { Engine } from "@babylonjs/core/Engines/engine";
-import { getSceneModuleWithName } from "./createScene";
+import {Engine} from "@babylonjs/core/Engines/engine";
 import {Scene} from "@babylonjs/core/scene";
 import MainScene from "./scenes/mainScene";
 import {Vector3} from "@babylonjs/core/Maths/math.vector";
-import {Color4, Effect, PostProcess, Sound, UniversalCamera} from "@babylonjs/core";
-import {AdvancedDynamicTexture, Rectangle, Image, TextBlock, Control, Button} from "@babylonjs/gui";
-
-const getModuleToLoad = (): string | undefined => location.search.split('scene=')[1];
-
-export const babylonInit = async (): Promise<void>  => {
-    // get the module to load
-    const moduleName = getModuleToLoad();
-    const createSceneModule = await getSceneModuleWithName('lostAndFound');
-
-    // Execute the pretasks, if defined
-    await Promise.all(createSceneModule.preTasks || []);
-    // Get the canvas element
-    const canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
-    // Generate the BABYLON 3D engine
-    const engine = new Engine(canvas, true);
-
-    // Create the scene
-    const scene = await createSceneModule.createScene(engine, canvas);
-
-    // Register a render loop to repeatedly render the scene
-    engine.runRenderLoop(function () {
-        scene.render();
-    });
-
-    // manage key binding
-    window.addEventListener("keydown", (ev) => {
-        // Shift+Ctrl+Alt+I
-        if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.keyCode === 73) {
-            console.log('Shift+Ctrl+Alt+I');
-            engine.displayLoadingUI();
-        }
-    });
-    // Watch for browser/canvas resize events
-    window.addEventListener("resize", function () {
-        engine.resize();
-    });
-}
-//
-// babylonInit().then(() => {
-//     console.log("scene started rendering, everything is initialized");
-// });
+import {Color4, Effect, PostProcess, UniversalCamera} from "@babylonjs/core";
+import {AdvancedDynamicTexture, Button, Control, Image, Rectangle, TextBlock} from "@babylonjs/gui";
 
 enum State { START = 0, GAME = 1, LOSE = 2, CUTSCENE = 3 }
 
@@ -61,7 +20,6 @@ class App {
         this.canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
         this.engine = new Engine(this.canvas, true);
         this.scene = new Scene(this.engine);
-        // this.scene = MainScene.build(this.engine, this.canvas);
 
         // manage key binding
         window.addEventListener("keydown", (ev: KeyboardEvent) => {
