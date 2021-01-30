@@ -42,16 +42,6 @@ class LostAndFound implements CreateSceneClass {
         const ground = Mesh.CreateBox("ground", 400, scene);
         ground.scaling = new Vector3(1,.02,1);
         ground.checkCollisions = true;
-        // const ground = GroundBuilder.CreateGround(
-        //     "ground",
-        //     {width: 400, height: 400},
-        //     scene
-        // );
-        // ground.checkCollisions = true;
-        //
-        // const groundMaterial = new StandardMaterial("ground material", scene);
-        // groundMaterial.diffuseTexture = new Texture(grassTextureUrl, scene);
-        // ground.material = groundMaterial;
     }
 
     private static createWalls(scene: Scene): void {
@@ -70,14 +60,6 @@ class LostAndFound implements CreateSceneClass {
         wall3.scaling = new Vector3(.05,.2,1);
         wall3.position = new Vector3(100, 10, 0)
         wall3.checkCollisions = true;
-        // const wall4 = Mesh.CreateBox("wall4", 100, scene);
-        // wall4.scaling = new Vector3(1,.2,.05);
-        // wall4.position = new Vector3(50, 10, 50)
-        // wall4.checkCollisions = true;
-        // const wall5 = Mesh.CreateBox("wall5", 100, scene);
-        // wall5.scaling = new Vector3(1,.2,.05);
-        // wall5.position = new Vector3(50, 10, 50)
-        // wall5.checkCollisions = true;
 
         wall1.material = groundMaterial;
         wall2.material = groundMaterial;
