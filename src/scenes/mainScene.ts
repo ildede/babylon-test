@@ -7,7 +7,7 @@ import {SceneLoader} from "@babylonjs/core/Loading/sceneLoader";
 
 export default class MainScene {
 
-    static build(engine: Engine, canvas: HTMLCanvasElement): Scene {
+    static build(engine: Engine, canvas: HTMLCanvasElement, goToWinScene: () => Promise<void>, goToLoseScene: () => Promise<void>): Scene {
         const scene = new Scene(engine);
         scene.gravity = new Vector3(0, -1, 0);
         scene.collisionsEnabled = true;
@@ -29,6 +29,18 @@ export default class MainScene {
         camera.ellipsoid = new Vector3(1, 2, 1);
         camera.applyGravity = true;
         camera.checkCollisions = true;
+
+        let keyEnabled = true;
+        window.addEventListener("keydown", (ev: KeyboardEvent) => {
+            if (keyEnabled && ev.key === 'W') {
+                keyEnabled = false;
+                goToWinScene();
+            }
+            if (keyEnabled && ev.key === 'L') {
+                keyEnabled = false;
+                goToLoseScene();
+            }
+        });
 
         return scene;
     }
