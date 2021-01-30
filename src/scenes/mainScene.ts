@@ -24,10 +24,10 @@ export default class MainScene {
         MainScene.createLights(scene);
         MainScene.createCustomMeshes(scene);
 
-        const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 1, -20), scene);
+        const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 10, -20), scene);
         camera.setTarget(Vector3.Zero());
         camera.attachControl(canvas, true);
-        camera.ellipsoid = new Vector3(1, 2, 1);
+        camera.ellipsoid = new Vector3(3, 2, 3);
         camera.applyGravity = true;
         camera.checkCollisions = true;
 
@@ -64,7 +64,7 @@ export default class MainScene {
         SceneLoader.ImportMesh(
             "",
             "public/models/",
-            "mesh_default.babylon",
+            "scene.babylon",
             scene,
             (a, b,c, d, e, f, g) => {
                 console.log("succes");
