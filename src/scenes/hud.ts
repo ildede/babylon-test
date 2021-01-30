@@ -26,7 +26,7 @@ export class Hud {
         textOnScreen.textHorizontalAlignment = TextBlock.HORIZONTAL_ALIGNMENT_CENTER;
         textOnScreen.fontSize = "48px";
         textOnScreen.color = "white";
-        textOnScreen.text = "This can be anything";
+        textOnScreen.text = "Shift+W to go to Win, Shift+L to go to Lose";
         textOnScreen.resizeToFit = true;
         textOnScreen.height = "96px";
         textOnScreen.width = "220px";
