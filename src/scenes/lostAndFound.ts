@@ -24,6 +24,10 @@ class LostAndFound implements CreateSceneClass {
         const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 20, -20), scene);
         camera.setTarget(new Vector3(0, 10, 10));
         camera.attachControl(canvas, true);
+        camera.keysUp.push(87);
+        camera.keysDown.push(83);
+        camera.keysLeft.push(65);
+        camera.keysRight.push(68);
         camera.ellipsoid = new Vector3(3, 10, 3);
         camera.applyGravity = true;
         camera.checkCollisions = true;
