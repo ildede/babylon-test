@@ -2,6 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 // App directory
 const appDirectory = fs.realpathSync(process.cwd());
@@ -53,7 +54,12 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             inject: true,
-            template: path.resolve(appDirectory, "public/index.html"),
+            template: path.resolve(appDirectory, "src/index.html"),
         }),
+        new CopyPlugin({
+            patterns: [
+                { from: "public", to: "public" }
+            ]
+        })
     ],
 };

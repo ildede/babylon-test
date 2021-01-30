@@ -3,12 +3,12 @@
     "version": "0.0.1",
     "description": "3D babylon game",
     "scripts": {
-        "start-bk": "webpack serve --config webpack.dev.js",
-        "build-bk": "webpack --config webpack.prod.js",
+        "start": "webpack serve --config webpack.dev.js",
+        "build": "webpack --config webpack.prod.js",
         "lint": "eslint . --ext .ts,.tsx",
 
-        "build": "webpack --config webpack.config.js",
-        "start": "webpack serve --config webpack.config.js"
+        "build2": "webpack --config webpack.config.js",
+        "start2": "webpack serve --config webpack.config.js"
     },
     "dependencies": {
         "@babylonjs/core": "4.2.0",
@@ -19,6 +19,7 @@
         "@typescript-eslint/eslint-plugin": "^4.14.1",
         "@typescript-eslint/parser": "^4.14.1",
         "clean-webpack-plugin": "^3.0.0",
+        "copy-webpack-plugin": "^7.0.0",
         "eslint": "^7.18.0",
         "file-loader": "^6.2.0",
         "html-webpack-plugin": "^4.5.1",

@@ -25,7 +25,7 @@ export default class MainScene {
         MainScene.createLights(scene);
         MainScene.createCustomMeshes(scene);
 
-        const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 10, -40), scene);
+        const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 5, -40), scene);
         camera.setTarget(new Vector3(0, 10, 10));
         camera.attachControl(canvas, true);
         camera.ellipsoid = new Vector3(3, 10, 3);
@@ -44,7 +44,7 @@ export default class MainScene {
 
     private static createGround(scene: Scene): void {
         const ground = Mesh.CreateBox("ground", 500, scene);
-        ground.position = new Vector3(0, -50, 0)
+        ground.position = new Vector3(0, -10, 0)
         ground.scaling = new Vector3(1,.01,1);
         ground.checkCollisions = true;
     }
