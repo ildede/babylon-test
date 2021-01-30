@@ -2,9 +2,19 @@ import {Engine} from "@babylonjs/core/Engines/engine";
 import {Scene} from "@babylonjs/core/scene";
 import {Vector3} from "@babylonjs/core/Maths/math.vector";
 import {HemisphericLight} from "@babylonjs/core/Lights/hemisphericLight";
-import {Mesh, Sound, UniversalCamera} from "@babylonjs/core";
+import {
+    AbstractMesh,
+    AnimationGroup, Geometry,
+    IParticleSystem, Light,
+    Mesh, PointLight,
+    Skeleton,
+    Sound,
+    TransformNode,
+    UniversalCamera
+} from "@babylonjs/core";
 import {SceneLoader} from "@babylonjs/core/Loading/sceneLoader";
 import {Hud} from "./hud";
+import manageMazeMaterial from "./functions/materials";
 
 export default class MainScene {
 
@@ -24,10 +34,10 @@ export default class MainScene {
         MainScene.createLights(scene);
         MainScene.createCustomMeshes(scene);
 
-        const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 10, -20), scene);
-        camera.setTarget(Vector3.Zero());
+        const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 4, 0), scene);
+        camera.setTarget(new Vector3(0, 4, 50));
         camera.attachControl(canvas, true);
-        camera.ellipsoid = new Vector3(3, 2, 3);
+        camera.ellipsoid = new Vector3(2, 2, 2);
         camera.applyGravity = true;
         camera.checkCollisions = true;
 
@@ -47,17 +57,12 @@ export default class MainScene {
     }
 
     private static createLights(scene: Scene): void {
-        // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-        const light = new HemisphericLight("light", new Vector3(0, 1, 0), scene);
-        // Default intensity is 1. Let's dim the light a small amount
-        light.intensity = 0.7;
-    }
-
-    private static createGround(scene: Scene): void {
-        const ground = Mesh.CreateBox("ground", 500, scene);
-        ground.position = new Vector3(0, -10, 0)
-        ground.scaling = new Vector3(1,.01,1);
-        ground.checkCollisions = true;
+        const light1 = new PointLight("pointLight", new Vector3(0, 1, 10), scene);
+        light1.intensity = 0.2;
+        const light2 = new PointLight("pointLight", new Vector3(0, 1, 40), scene);
+        light2.intensity = 0.2;
+        const light3 = new PointLight("pointLight", new Vector3(60, 1, 40), scene);
+        light3.intensity = 0.2;
     }
 
     private static createCustomMeshes(scene: Scene) {
@@ -66,18 +71,17 @@ export default class MainScene {
             "public/models/",
             "scene.babylon",
             scene,
-            (a, b,c, d, e, f, g) => {
-                console.log("succes");
-                // console.log(a);
-                // console.log(b);
-                // console.log(c);
-                // console.log(d);
-                // console.log(e);
-                // console.log(f);
-                // console.log(g);
-                a.forEach((mesh) => {
-                    console.log(mesh);
-                    mesh.checkCollisions = true;
+            (allMeshes: AbstractMesh[], particles: IParticleSystem[], skeletons: Skeleton[], animations: AnimationGroup[], transforms: TransformNode[], geometries: Geometry[], lights: Light[]) => {
+                console.log('allMeshes', allMeshes);
+                console.log('particles', particles);
+                console.log('skeletons', skeletons);
+                console.log('animations', animations);
+                console.log('transforms', transforms);
+                console.log('geometries', geometries);
+                console.log('lights', lights);
+                allMeshes.forEach((mesh) => {
+                    console.log('Work with mesh', mesh);
+                    manageMazeMaterial(mesh, scene);
                 })
             },
             () => {
