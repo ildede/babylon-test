@@ -90,7 +90,7 @@ class App {
         imageRect.thickness = 3;
         guiMenu.addControl(imageRect);
 
-        const startbg = new Image("startbg", "sprites/labyrinth.jpg");
+        const startbg = new Image("startbg", "/public/sprites/labyrinth.jpg");
         imageRect.addControl(startbg);
 
         const title = new TextBlock("title", "LOST AND FOUND");

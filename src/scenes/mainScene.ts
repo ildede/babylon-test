@@ -15,7 +15,7 @@ export default class MainScene {
         //--SOUNDS--
         new Sound(
             "startSong",
-            "./sounds/alice.mp3",
+            "/public/sounds/alice.mp3",
             scene,
             () => {console.log("readyToPlay callback");},
             {volume: 0.25, loop: true, autoplay: true}
@@ -52,7 +52,7 @@ export default class MainScene {
     private static createCustomMeshes(scene: Scene) {
         SceneLoader.ImportMesh(
             "",
-            "models/",
+            "public/models/",
             "mesh_default.babylon",
             scene,
             (a, b,c, d, e, f, g) => {
