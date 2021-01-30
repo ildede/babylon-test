@@ -4,11 +4,10 @@ import {Scene} from "@babylonjs/core/scene";
 import {Vector3} from "@babylonjs/core/Maths/math.vector";
 import {HemisphericLight} from "@babylonjs/core/Lights/hemisphericLight";
 import {SphereBuilder} from "@babylonjs/core/Meshes/Builders/sphereBuilder";
-import {GroundBuilder} from "@babylonjs/core/Meshes/Builders/groundBuilder";
+import {Mesh, UniversalCamera} from "@babylonjs/core";
 import {StandardMaterial} from "@babylonjs/core/Materials/standardMaterial";
 import {Texture} from "@babylonjs/core/Materials/Textures/texture";
 import grassTextureUrl from "../../assets/grass.jpg";
-import {UniversalCamera} from "@babylonjs/core";
 
 class LostAndFound implements CreateSceneClass {
 
@@ -17,6 +16,11 @@ class LostAndFound implements CreateSceneClass {
         scene.gravity = new Vector3(0, -1, 0);
         scene.collisionsEnabled = true;
 
+        LostAndFound.createGround(scene);
+        LostAndFound.createWalls(scene);
+        LostAndFound.createLights(scene);
+        LostAndFound.createSpheres(scene);
+
         const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 20, -20), scene);
         camera.setTarget(new Vector3(0, 10, 10));
         camera.attachControl(canvas, true);
@@ -24,15 +28,67 @@ class LostAndFound implements CreateSceneClass {
         camera.applyGravity = true;
         camera.checkCollisions = true;
 
+        return scene;
+    }
+
+    private static createLights(scene: Scene): void {
         // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
         const light = new HemisphericLight("light", new Vector3(0, 1, 0), scene);
         // Default intensity is 1. Let's dim the light a small amount
         light.intensity = 0.7;
+    }
 
+    private static createGround(scene: Scene): void {
+        const ground = Mesh.CreateBox("ground", 400, scene);
+        ground.scaling = new Vector3(1,.02,1);
+        ground.checkCollisions = true;
+        // const ground = GroundBuilder.CreateGround(
+        //     "ground",
+        //     {width: 400, height: 400},
+        //     scene
+        // );
+        // ground.checkCollisions = true;
+        //
+        // const groundMaterial = new StandardMaterial("ground material", scene);
+        // groundMaterial.diffuseTexture = new Texture(grassTextureUrl, scene);
+        // ground.material = groundMaterial;
+    }
+
+    private static createWalls(scene: Scene): void {
+        const groundMaterial = new StandardMaterial("ground material", scene);
+        groundMaterial.diffuseTexture = new Texture(grassTextureUrl, scene);
+
+        const wall1 = Mesh.CreateBox("wall1", 100, scene);
+        wall1.scaling = new Vector3(1,.2,.05);
+        wall1.position = new Vector3(50, 10, 50)
+        wall1.checkCollisions = true;
+        const wall2 = Mesh.CreateBox("wall2", 100, scene);
+        wall2.scaling = new Vector3(1,.2,.05);
+        wall2.position = new Vector3(50, 10, -50)
+        wall2.checkCollisions = true;
+        const wall3 = Mesh.CreateBox("wall3", 100, scene);
+        wall3.scaling = new Vector3(.05,.2,1);
+        wall3.position = new Vector3(100, 10, 0)
+        wall3.checkCollisions = true;
+        // const wall4 = Mesh.CreateBox("wall4", 100, scene);
+        // wall4.scaling = new Vector3(1,.2,.05);
+        // wall4.position = new Vector3(50, 10, 50)
+        // wall4.checkCollisions = true;
+        // const wall5 = Mesh.CreateBox("wall5", 100, scene);
+        // wall5.scaling = new Vector3(1,.2,.05);
+        // wall5.position = new Vector3(50, 10, 50)
+        // wall5.checkCollisions = true;
+
+        wall1.material = groundMaterial;
+        wall2.material = groundMaterial;
+        wall3.material = groundMaterial;
+    }
+
+    private static createSpheres(scene: Scene): void {
         // Our built-in 'sphere' shape.
         const sphere1 = SphereBuilder.CreateSphere(
             "sphere1",
-            { diameter: 10, segments: 32 },
+            {diameter: 10, segments: 32},
             scene
         );
         sphere1.position = new Vector3(-10, 4, 0)
@@ -40,24 +96,11 @@ class LostAndFound implements CreateSceneClass {
         // Our built-in 'sphere' shape.
         const sphere2 = SphereBuilder.CreateSphere(
             "sphere2",
-            { diameter: 10, segments: 32 },
+            {diameter: 10, segments: 32},
             scene
         );
         sphere2.position = new Vector3(10, 4, 0)
         sphere2.checkCollisions = true;
-
-        const ground = GroundBuilder.CreateGround(
-            "ground",
-            { width: 400, height: 400 },
-            scene
-        );
-        ground.checkCollisions = true;
-
-        const groundMaterial = new StandardMaterial("ground material", scene);
-        groundMaterial.diffuseTexture = new Texture(grassTextureUrl, scene);
-        ground.material = groundMaterial;
-
-        return scene;
     }
 }
 
