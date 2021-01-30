@@ -20,15 +20,13 @@ export default class MainScene {
             () => {console.log("readyToPlay callback");},
             {volume: 0.25, loop: true, autoplay: true}
         );
-
-        MainScene.createGround(scene);
         MainScene.createLights(scene);
         MainScene.createCustomMeshes(scene);
 
-        const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 5, -40), scene);
-        camera.setTarget(new Vector3(0, 10, 10));
+        const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 1, -20), scene);
+        camera.setTarget(Vector3.Zero());
         camera.attachControl(canvas, true);
-        camera.ellipsoid = new Vector3(3, 10, 3);
+        camera.ellipsoid = new Vector3(1, 2, 1);
         camera.applyGravity = true;
         camera.checkCollisions = true;
 
@@ -57,13 +55,13 @@ export default class MainScene {
             scene,
             (a, b,c, d, e, f, g) => {
                 console.log("succes");
-                console.log(a);
-                console.log(b);
-                console.log(c);
-                console.log(d);
-                console.log(e);
-                console.log(f);
-                console.log(g);
+                // console.log(a);
+                // console.log(b);
+                // console.log(c);
+                // console.log(d);
+                // console.log(e);
+                // console.log(f);
+                // console.log(g);
                 a.forEach((mesh) => {
                     console.log(mesh);
                     mesh.checkCollisions = true;
