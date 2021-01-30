@@ -1,39 +1,46 @@
-import {CreateSceneClass} from "../createScene";
 import {Engine} from "@babylonjs/core/Engines/engine";
 import {Scene} from "@babylonjs/core/scene";
 import {Vector3} from "@babylonjs/core/Maths/math.vector";
 import {HemisphericLight} from "@babylonjs/core/Lights/hemisphericLight";
 import {SphereBuilder} from "@babylonjs/core/Meshes/Builders/sphereBuilder";
-import {Mesh, UniversalCamera} from "@babylonjs/core";
+import {Mesh, Sound, UniversalCamera} from "@babylonjs/core";
 import {StandardMaterial} from "@babylonjs/core/Materials/standardMaterial";
 import {Texture} from "@babylonjs/core/Materials/Textures/texture";
 import grassTextureUrl from "../../assets/grass.jpg";
 import {SceneLoader} from "@babylonjs/core/Loading/sceneLoader";
 import controllerModel from "../../assets/glb/samsung-controller.glb";
 
-class LostAndFound implements CreateSceneClass {
+export default class MainScene {
 
-    createScene = async (engine: Engine, canvas: HTMLCanvasElement): Promise<Scene> => {
+    static build(engine: Engine, canvas: HTMLCanvasElement): Scene {
         const scene = new Scene(engine);
         scene.gravity = new Vector3(0, -1, 0);
         scene.collisionsEnabled = true;
 
-        const importResult = await SceneLoader.ImportMeshAsync(
-            "",
-            "",
-            controllerModel,
-            scene,
-            undefined,
-            ".glb"
-        );
+        // const importResult = await SceneLoader.ImportMeshAsync(
+        //     "",
+        //     "",
+        //     controllerModel,
+        //     scene,
+        //     undefined,
+        //     ".glb"
+        // );
 
         // just scale it so we can see it better
-        importResult.meshes[0].scaling.scaleInPlace(10);
+        // importResult.meshes[0].scaling.scaleInPlace(10);
+        //--SOUNDS--
+        const start = new Sound(
+            "startSong",
+            "./sounds/alice.mp3",
+            scene,
+            () => {console.log("readyToPlay callback");},
+            {volume: 0.25, loop: true, autoplay: true}
+        );
 
-        LostAndFound.createGround(scene);
-        LostAndFound.createWalls(scene);
-        LostAndFound.createLights(scene);
-        LostAndFound.createSpheres(scene);
+        MainScene.createGround(scene);
+        MainScene.createWalls(scene);
+        MainScene.createLights(scene);
+        MainScene.createSpheres(scene);
 
         const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 20, -20), scene);
         camera.setTarget(new Vector3(0, 10, 10));
@@ -99,5 +106,3 @@ class LostAndFound implements CreateSceneClass {
         sphere2.checkCollisions = true;
     }
 }
-
-export default new LostAndFound();
