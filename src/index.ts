@@ -4,6 +4,7 @@ import MainScene from "./scenes/mainScene";
 import StartScene from "./scenes/startScene";
 import LoseScene from "./scenes/loseScene";
 import WinScene from "./scenes/winScene";
+import {Hud} from "./scenes/hud";
 
 enum State { START = 0, GAME = 1, LOSE = 2, WIN = 3 }
 
@@ -13,19 +14,20 @@ class App {
     private scene: Scene;
 
     private state: State = State.START;
+    private hud!: Hud;
 
     constructor() {
         this.canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
         this.engine = new Engine(this.canvas, true);
         this.scene = new Scene(this.engine);
 
-        // manage key binding
-        window.addEventListener("keydown", (ev: KeyboardEvent) => {
-            // Shift+Ctrl+Alt+I
-            if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.keyCode === 73) {
-                console.log('Shift+Ctrl+Alt+I');
-            }
-        });
+        // // manage key binding
+        // window.addEventListener("keydown", (ev: KeyboardEvent) => {
+        //     // Shift+Ctrl+Alt+I
+        //     if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.keyCode === 73) {
+        //         console.log('Shift+Ctrl+Alt+I');
+        //     }
+        // });
 
         this.main();
     }
@@ -34,31 +36,22 @@ class App {
         await this.goToStart();
 
         this.engine.runRenderLoop(() => {
-            this.scene.render();
-            // switch (this.state) {
-            //     case State.START:
-            //         this.scene.render();
-            //         break;
-            //     case State.GAME:
-                    //if 30seconds have have passed, go back to start
-                    // if (this.ui.time >= 30) {
-                    //     this.goToStart();
-                    //     this.ui.stopTimer();
-                    // }
-                    // if (this.ui.quit) {
-                    //     this.goToStart();
-                    //     this.ui.quit = false;
-                    // }
-            //         this.scene.render();
-            //         break;
-            //     case State.LOSE:
-            //         this.scene.render();
-            //         break;
-            //     case State.LOSE:
-            //         this.scene.render();
-            //         break;
-            //     default: break;
-            // }
+            switch (this.state) {
+                case State.START:
+                    this.scene.render();
+                    break;
+                case State.GAME:
+                    this.hud.updateHud();
+                    this.scene.render();
+                    break;
+                case State.LOSE:
+                    this.scene.render();
+                    break;
+                case State.WIN:
+                    this.scene.render();
+                    break;
+                default: break;
+            }
         });
 
         window.addEventListener("resize", () => {
@@ -89,7 +82,8 @@ class App {
         //dont detect any inputs from this ui while the game is loading
         this.scene.detachControl();
 
-        const scene = MainScene.build(this.engine, this.canvas, () => this.goToWin(), () => this.goToLose());
+        const [scene, hud] = MainScene.build(this.engine, this.canvas, () => this.goToWin(), () => this.goToLose());
+        this.hud = hud;
 
         //--SCENE FINISHED LOADING--
         await scene.whenReadyAsync();

@@ -4,10 +4,11 @@ import {Vector3} from "@babylonjs/core/Maths/math.vector";
 import {HemisphericLight} from "@babylonjs/core/Lights/hemisphericLight";
 import {Mesh, Sound, UniversalCamera} from "@babylonjs/core";
 import {SceneLoader} from "@babylonjs/core/Loading/sceneLoader";
+import {Hud} from "./hud";
 
 export default class MainScene {
 
-    static build(engine: Engine, canvas: HTMLCanvasElement, goToWinScene: () => Promise<void>, goToLoseScene: () => Promise<void>): Scene {
+    static build(engine: Engine, canvas: HTMLCanvasElement, goToWinScene: () => Promise<void>, goToLoseScene: () => Promise<void>): [Scene,Hud] {
         const scene = new Scene(engine);
         scene.gravity = new Vector3(0, -1, 0);
         scene.collisionsEnabled = true;
@@ -41,8 +42,8 @@ export default class MainScene {
                 goToLoseScene();
             }
         });
-
-        return scene;
+        const hud = new Hud(scene);
+        return [scene, hud];
     }
 
     private static createLights(scene: Scene): void {
