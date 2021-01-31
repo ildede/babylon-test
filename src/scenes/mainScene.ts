@@ -3,7 +3,7 @@ import {Scene} from "@babylonjs/core/scene";
 import {Vector3, Vector4} from "@babylonjs/core/Maths/math.vector";
 import {
     AbstractMesh,
-    AnimationGroup,
+    AnimationGroup, Color3, Color4,
     Geometry, GlowLayer,
     IParticleSystem,
     Light, Mesh, MeshBuilder,
@@ -24,6 +24,8 @@ export default class MainScene {
         const scene = new Scene(engine);
         scene.gravity = new Vector3(0, -1, 0);
         scene.collisionsEnabled = true;
+        scene.clearColor = new Color4(0,0,0);
+        scene.clearColor = new Color4(0,0,0);
 
         //--SOUNDS--
         new Sound(
