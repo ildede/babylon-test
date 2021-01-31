@@ -1,4 +1,4 @@
-import {AbstractMesh, Color3, Nullable, StandardMaterial, Texture} from "@babylonjs/core";
+import {AbstractMesh, Color3, MultiMaterial, Nullable, StandardMaterial, Texture} from "@babylonjs/core";
 import {Scene} from "@babylonjs/core/scene";
 
 export default function manageMaterials(meshes: AbstractMesh[], scene: Scene): void {
@@ -51,18 +51,17 @@ function manageMazeMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
 
     if (mesh) {
 
-        const mazeGroundsMaterial = StandardMaterial("mazeGroundsMaterial", scene),
-    		mazeWallsMaterial = StandardMaterial("mazeWallsMaterial", scene),
-			mazeMultiMaterial = MultiMaterial("mazeMultiMaterial", scene);
+        const mazeGroundsMaterial = new StandardMaterial("mazeGroundsMaterial", scene);
+        const mazeWallsMaterial = new StandardMaterial("mazeWallsMaterial", scene);
+        const mazeMultiMaterial = new MultiMaterial("mazeMultiMaterial", scene);
 
-    	mazeGroundsMaterial.diffuseColor = Color3(1, 0.5, 0.5);
+        mazeGroundsMaterial.diffuseColor = new Color3(1, 0.5, 0.5);
+        mazeWallsMaterial.diffuseColor = new Color3(1, 0.5, 1);
 
-    	mazeWallsMaterial.diffuseColor = Color3(1, 0.5, 1);
+        mazeMultiMaterial.subMaterials.push(mazeGroundsMaterial);
+        mazeMultiMaterial.subMaterials.push(mazeWallsMaterial);
 
-    	mazeMultiMaterial.subMaterials.push(mazeGroundsMaterial);
-		mazeMultiMaterial.subMaterials.push(mazeWallsMaterial);
-
-    	mesh.material = mazeMultiMaterial;
+        mesh.material = mazeMultiMaterial;
     }
 }
 
