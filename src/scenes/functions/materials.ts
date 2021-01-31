@@ -4,7 +4,7 @@ import {Scene} from "@babylonjs/core/scene";
 export default function manageMaterials ( meshes: AbstractMesh[], scene: Scene ): void {
 
     const meshesLength = meshes.length,
-        meshesGroup = {
+        meshesGroup: {maze: Nullable<AbstractMesh>, walls: AbstractMesh[], canvas: AbstractMesh[]} = {
             maze : scene.getMeshByName('maze'),
             walls : [],
             canvas : [],
