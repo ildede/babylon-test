@@ -128,6 +128,8 @@ function manageCanvasMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
     meshes.forEach((mesh) => {
         const canvaMarkMaterial = new StandardMaterial("wallMaterial", scene);
         canvaMarkMaterial.diffuseTexture = new Texture("/public/sprites/"+mesh.name+".png", scene);
+        canvaMarkMaterial.specularColor = new Color3(0, 0, 0);
+        canvaMarkMaterial.emissiveColor = new Color3(0.1,0.1,0.1);
         mesh.isVisible = false;
         mesh.isPickable = false;
         mesh.material = canvaMarkMaterial;
