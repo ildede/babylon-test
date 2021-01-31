@@ -55,13 +55,14 @@ function manageMazeMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
 
     if (mesh) {
 
-        const mazeWallsMaterial = new StandardMaterial("mazeWallsMaterial", scene),
-            mazeGroundsMaterial = new StandardMaterial("mazeGroundsMaterial", scene),
-            mazeMultiMaterial = new MultiMaterial("mazeMultiMaterial", scene);
+        const mazeWallsMaterial = new StandardMaterial("mazeWallsMaterial", scene);
+        const mazeGroundsMaterial = new StandardMaterial("mazeGroundsMaterial", scene);
+        const mazeMultiMaterial = new MultiMaterial("mazeMultiMaterial", scene);
 
         mazeGroundsMaterial.diffuseTexture = new Texture('public/textures/mazegrounds_diffuse.png', scene);
         mazeGroundsMaterial.emissiveTexture = new Texture('public/textures/mazegrounds_emissive.jpg', scene);
         mazeGroundsMaterial.emissiveColor = new Color3(0.5,0.5,0.5);
+        console.log(mazeGroundsMaterial.diffuseTexture);
         // @ts-ignore
         mazeGroundsMaterial.diffuseTexture.uScale = 10;
         // @ts-ignore
@@ -73,7 +74,7 @@ function manageMazeMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
         mazeWallsMaterial.emissiveTexture = new Texture('public/textures/mazewalls_emissive.jpg', scene);
         mazeWallsMaterial.emissiveColor = new Color3(0.25,0.25,0.25);
         // @ts-ignore
-        mazeWallsMaterial.emissiveTexture.uScale = 4;
+        mazeWallsMaterial.emissiveTexture.vScale = 4;
 
         mazeGroundsMaterial.diffuseTexture.hasAlpha = mazeWallsMaterial.diffuseTexture.hasAlpha = true;
 
