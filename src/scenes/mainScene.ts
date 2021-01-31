@@ -1,14 +1,14 @@
 import {Engine} from "@babylonjs/core/Engines/engine";
 import {Scene} from "@babylonjs/core/scene";
-import {Vector3} from "@babylonjs/core/Maths/math.vector";
+import {Vector3, Vector4} from "@babylonjs/core/Maths/math.vector";
 import {HemisphericLight} from "@babylonjs/core/Lights/hemisphericLight";
 import {
     AbstractMesh,
     AnimationGroup, Geometry,
     IParticleSystem, Light,
-    Mesh, PointLight,
+    Mesh, MeshBuilder, PointerEventTypes, PointLight,
     Skeleton,
-    Sound,
+    Sound, StandardMaterial, Texture,
     TransformNode,
     UniversalCamera
 } from "@babylonjs/core";
@@ -33,6 +33,7 @@ export default class MainScene {
         );
         MainScene.createLights(scene);
         MainScene.createCustomMeshes(scene);
+        const pickables = MainScene.createPickableObjects(scene);
 
         const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 4, 0), scene);
         camera.setTarget(new Vector3(0, 4, 50));
@@ -40,6 +41,17 @@ export default class MainScene {
         camera.ellipsoid = new Vector3(2, 2, 2);
         camera.applyGravity = true;
         camera.checkCollisions = true;
+
+        scene.onPointerObservable.add((pointerInfo) => {
+            switch (pointerInfo.type) {
+                case PointerEventTypes.POINTERPICK:
+                    console.log("POINTER PICK", pointerInfo);
+                    if (pointerInfo.pickInfo && pointerInfo.pickInfo.distance < 15) {
+                        console.log('pick up please');
+                    }
+                    break;
+            }
+        });
 
         let keyEnabled = true;
         window.addEventListener("keydown", (ev: KeyboardEvent) => {
@@ -84,9 +96,24 @@ export default class MainScene {
                     manageMazeMaterial(mesh, scene);
                 })
             },
-            () => {
-                console.log("on progress");
-            }
+            () => { console.log("on progress"); }
         );
+    }
+
+    private static createPickableObjects(scene: Scene): Mesh[] {
+        const f = new Vector4(0.5,0, 1, 1); // front image = half the whole image along the width 
+        const b = new Vector4(0,0, 0.5, 1); // back image = second half along the width 
+
+        const plane = MeshBuilder.CreatePlane("plane", 
+            {height:3.5, width: 6, sideOrientation: Mesh.DOUBLESIDE, frontUVs: f, backUVs: b},
+            scene);
+        plane.position = new Vector3(0, 3, 45);
+        plane.billboardMode = Mesh.BILLBOARDMODE_Y;
+
+        const mat = new StandardMaterial("", scene);
+        mat.diffuseTexture = new Texture("/public/sprites/souvenir2.png", scene);
+        plane.material = mat;
+
+        return [plane];
     }
 }
