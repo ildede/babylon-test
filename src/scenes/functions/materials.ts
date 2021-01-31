@@ -27,12 +27,14 @@ export default function manageMaterials ( meshes: AbstractMesh[], scene: Scene )
     manageCanvasMaterial(meshesGroup.canvas, scene);
 }
 
-function manageMazeMaterial(mesh: AbstractMesh, scene: Scene): void {
+function manageMazeMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
 
     const mazeMaterial = new StandardMaterial("mazeMaterial", scene);
     mazeMaterial.diffuseColor = new Color3(1, 0.5, 0.5);
 
-    mesh.material = mazeMaterial;
+    if (mesh) {
+        mesh.material = mazeMaterial;
+    }
 }
 
 function manageWallsMaterial ( meshes: AbstractMesh[], scene: Scene ): void {
