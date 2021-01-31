@@ -54,12 +54,13 @@ export default class MainScene {
                         if (pickedMesh != undefined && pickedMesh.isVisible) {
                             pickedMesh.isVisible = false;
                             const targetMeshName = pickedMesh.name.split("_").join("_mark_");
+                            const targetAudioName = "memory_"+pickedMesh.name.split("_")[1];
                             scene.meshes.forEach((v) => {
                                 if (v.name === targetMeshName) {
                                     v.isVisible = true;
                                     new Sound(
                                         "souvenir",
-                                        "/public/sounds/"+pickedMesh.name+".mp3",
+                                        "/public/sounds/"+targetAudioName+".mp3",
                                         scene,
                                         null,
                                         {volume: 1, loop: false, autoplay: true},
