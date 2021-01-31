@@ -1,14 +1,14 @@
-import {AbstractMesh, Color3, StandardMaterial} from "@babylonjs/core";
+import {AbstractMesh, Color3, Nullable, StandardMaterial} from "@babylonjs/core";
 import {Scene} from "@babylonjs/core/scene";
 
 export default function manageMaterials ( meshes: AbstractMesh[], scene: Scene ): void {
 
-    const meshesLength = meshes.length,
-        meshesGroup: {maze: Nullable<AbstractMesh>, walls: AbstractMesh[], canvas: AbstractMesh[]} = {
-            maze : scene.getMeshByName('maze'),
-            walls : [],
-            canvas : [],
-        };
+    const meshesLength = meshes.length
+    const meshesGroup: {maze: Nullable<AbstractMesh>, walls: AbstractMesh[], canvas: AbstractMesh[]} = {
+        maze: scene.getMeshByName('maze'),
+        walls: [],
+        canvas: []
+    };
 
     for(let i = 0; i < meshesLength; i++) {
 
