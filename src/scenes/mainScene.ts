@@ -108,8 +108,8 @@ export default class MainScene {
     }
 
     private static createEndCanvasObjects(scene: Scene): Mesh[] {
-        const f = new Vector4(0.5,0, 1, 1); // front image = half the whole image along the width 
-        const b = new Vector4(0,0, 0.5, 1); // back image = second half along the width 
+        const f = new Vector4(0,0, 1, 1); // front image = half the whole image along the width
+        const b = new Vector4(0,0, 0, 1); // back image = second half along the width
 
         const appartNormale = MeshBuilder.CreatePlane("done_canva_001",
             {height:3.5, width: 6, sideOrientation: Mesh.DOUBLESIDE, frontUVs: f, backUVs: b},
