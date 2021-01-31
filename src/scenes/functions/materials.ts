@@ -42,7 +42,7 @@ function manageCanvasMaterial(meshes: AbstractMesh[], scene: Scene): void {
 
     meshes.forEach((mesh) => {
         const canvasMaterial = new StandardMaterial("canvasMaterial", scene);
-        canvasMaterial.diffuseColor = new Color3(0.5, 1, 0.5);
+        // canvasMaterial.diffuseColor = new Color3(0.5, 1, 0.5);
         canvasMaterial.diffuseTexture = new Texture("/public/sprites/"+getTextureName(mesh.name), scene);
         mesh.isPickable = true;
         mesh.material = canvasMaterial;
