@@ -35,7 +35,7 @@ private function manageMazeMaterial(mesh: AbstractMesh, scene: Scene): void {
     mesh.material = mazeMaterial;
 }
 
-private function manageWallsMaterial ( meshes: AbstractMesh[], scene: Scene ) {
+private function manageWallsMaterial ( meshes: AbstractMesh[], scene: Scene ): void {
 
 	let meshesLength = meshes.length;
 
@@ -45,7 +45,7 @@ private function manageWallsMaterial ( meshes: AbstractMesh[], scene: Scene ) {
     for(let i = 0; i < meshesLength; i++) { meshes[i].material = wallMaterial; }
 }
 
-private function manageCanvasMaterial ( meshes: AbstractMesh[], scene: Scene ) {
+private function manageCanvasMaterial ( meshes: AbstractMesh[], scene: Scene ): void {
 
 	let meshesLength = meshes.length;
 
