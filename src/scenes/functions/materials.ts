@@ -51,10 +51,18 @@ function manageMazeMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
 
     if (mesh) {
 
-        const mazeMaterial = new StandardMaterial("mazeMaterial", scene);
-        mazeMaterial.diffuseColor = new Color3(1, 0.5, 0.5);
+        const mazeGroundsMaterial = StandardMaterial("mazeGroundsMaterial", scene),
+    		mazeWallsMaterial = StandardMaterial("mazeWallsMaterial", scene),
+			mazeMultiMaterial = MultiMaterial("mazeMultiMaterial", scene);
 
-        mesh.material = mazeMaterial;
+    	mazeGroundsMaterial.diffuseColor = Color3(1, 0.5, 0.5);
+
+    	mazeWallsMaterial.diffuseColor = Color3(1, 0.5, 1);
+
+    	mazeMultiMaterial.subMaterials.push(mazeGroundsMaterial);
+		mazeMultiMaterial.subMaterials.push(mazeWallsMaterial);
+
+    	mesh.material = mazeMultiMaterial;
     }
 }
 
