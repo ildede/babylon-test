@@ -101,7 +101,7 @@ function manageWallsMaterial(meshes: AbstractMesh[], scene: Scene): void {
    wallMaterial.diffuseTexture.hasAlpha = true;
    wallMaterial.emissiveTexture = new Texture('/public/textures/mazewalls_emissive.jpg', scene);
 
-    meshes.forEach((mesh) => { mesh.material = wallMaterial; });
+   meshes.forEach((mesh) => { mesh.material = wallMaterial; });
 }
 
 function manageCanvasMaterialAndCanvasLight(meshes: AbstractMesh[], scene: Scene): void {
