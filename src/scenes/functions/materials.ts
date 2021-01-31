@@ -16,7 +16,7 @@ export default function manageMaterials(meshes: AbstractMesh[], scene: Scene): v
         walls : [],
         canvas : [],
         canvasMarks : [],
-        pathsMark : [],
+        pathsMarks : [],
     };
 
     meshes.forEach((mesh) => {
@@ -44,7 +44,7 @@ export default function manageMaterials(meshes: AbstractMesh[], scene: Scene): v
     manageWallsMaterial(meshesGroup.walls, scene);
     manageCanvasMaterial(meshesGroup.canvas, scene);
     manageCanvasMarksMaterial(meshesGroup.canvasMarks, scene);
-    managePathsMarksMaterial(meshesGroup.pathsMark, scene);
+    managePathsMarksMaterial(meshesGroup.pathsMarks, scene);
 }
 
 function manageMazeMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
@@ -65,26 +65,24 @@ function manageEndDoorMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void
         const doorMaterial = new StandardMaterial("doorMaterial", scene);
         doorMaterial.diffuseColor = new Color3(0.5, 0.5, 1);
 
-        mesh.material = doorMaterial);
+        mesh.material = doorMaterial;
     }
 }
 
 function manageWallsMaterial(meshes: AbstractMesh[], scene: Scene): void {
     
     const wallMaterial = new StandardMaterial("wallMaterial", scene);
-        wallMaterial.diffuseColor = new BABYLON.Color3(1, 0.5, 0.5);
+        wallMaterial.diffuseColor = new Color3(1, 0.5, 0.5);
     
     meshes.forEach((mesh) => { mesh.material = wallMaterial; });
 }
 
 function manageCanvasMaterial(meshes: AbstractMesh[], scene: Scene): void {
     
-    const canvasMaterial = new StandardMaterial("canvasMaterial", scene);
+    meshes.forEach((mesh) => {
+        const canvasMaterial = new StandardMaterial("canvasMaterial", scene);
         // canvasMaterial.diffuseColor = new Color3(0.5, 1, 0.5);
         canvasMaterial.diffuseTexture = new Texture("/public/sprites/"+getTextureName(mesh.name), scene);
-    
-    meshes.forEach((mesh) => {
-        
         mesh.isPickable = true;
         mesh.material = canvasMaterial;
     });
@@ -93,7 +91,7 @@ function manageCanvasMaterial(meshes: AbstractMesh[], scene: Scene): void {
 function manageCanvasMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
     
     const canvaMarkMaterial = new StandardMaterial("wallMaterial", scene);
-        canvaMarkMaterial.diffuseColor = new BABYLON.Color3(0.5, 1, 0.5);
+        canvaMarkMaterial.diffuseColor = new Color3(0.5, 1, 0.5);
     
     meshes.forEach((mesh) => { mesh.material = canvaMarkMaterial; });
 }
@@ -101,7 +99,7 @@ function manageCanvasMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
 function managePathsMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
     
     const pathMarkMaterial = new StandardMaterial("wallMaterial", scene);
-        pathMarkMaterial.diffuseColor = new BABYLON.Color3(1, 1, 0.5);
+        pathMarkMaterial.diffuseColor = new Color3(1, 1, 0.5);
     
     meshes.forEach((mesh) => { mesh.material = pathMarkMaterial; });
 }
