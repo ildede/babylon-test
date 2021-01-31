@@ -25,17 +25,17 @@ export default function manageMaterials(meshes: AbstractMesh[], scene: Scene): v
 
             meshesGroup.walls.push(mesh);
 
-        } else if (mesh.name.startsWith('canva')) {
-
-            meshesGroup.canvas.push(mesh);
-
         } else if (mesh.name.startsWith('canva_mark')) {
+
+            meshesGroup.canvasMarks.push(mesh);
+
+        } else if (mesh.name.startsWith('canva')) {
 
             meshesGroup.canvas.push(mesh);
 
         } else if (mesh.name.startsWith('path_mark')) {
 
-            meshesGroup.canvas.push(mesh);
+            meshesGroup.pathsMarks.push(mesh);
         }
     });
 
@@ -81,8 +81,7 @@ function manageCanvasMaterial(meshes: AbstractMesh[], scene: Scene): void {
 
     meshes.forEach((mesh) => {
         const canvasMaterial = new StandardMaterial("canvasMaterial", scene);
-        // canvasMaterial.diffuseColor = new Color3(0.5, 1, 0.5);
-        canvasMaterial.diffuseTexture = new Texture("/public/sprites/"+getTextureName(mesh.name), scene);
+        canvasMaterial.diffuseTexture = new Texture("/public/sprites/"+mesh.name+".png", scene);
         mesh.isPickable = true;
         mesh.material = canvasMaterial;
     });
@@ -90,10 +89,13 @@ function manageCanvasMaterial(meshes: AbstractMesh[], scene: Scene): void {
 
 function manageCanvasMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
 
-    const canvaMarkMaterial = new StandardMaterial("wallMaterial", scene);
-    canvaMarkMaterial.diffuseColor = new Color3(0.5, 1, 0.5);
-
-    meshes.forEach((mesh) => { mesh.material = canvaMarkMaterial; });
+    meshes.forEach((mesh) => {
+        const canvaMarkMaterial = new StandardMaterial("wallMaterial", scene);
+        canvaMarkMaterial.diffuseTexture = new Texture("/public/sprites/"+mesh.name+".png", scene);
+        mesh.isVisible = false;
+        mesh.isPickable = false;
+        mesh.material = canvaMarkMaterial;
+    });
 }
 
 function managePathsMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
@@ -102,22 +104,4 @@ function managePathsMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
     pathMarkMaterial.diffuseColor = new Color3(1, 1, 0.5);
 
     meshes.forEach((mesh) => { mesh.material = pathMarkMaterial; });
-}
-
-function getTextureName(s: string): string {
-    switch (s) {
-        case 'canva_001':
-            return "haut_de_forme.png";
-        case 'canva_002':
-            return "journal.png";
-        case 'canva_003':
-            return "lapin.png";
-        case 'canva_004':
-            return "haut_de_forme.png";
-        case 'canva_005':
-            return "journal.png";
-        case 'canva_006':
-            return "lapin.png";
-    }
-    return "";
 }

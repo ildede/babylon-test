@@ -34,8 +34,7 @@ export default class MainScene {
             {volume: 0.20, loop: true, autoplay: true}
         );
         MainScene.createLights(scene);
-        MainScene.createCustomMeshes(scene);
-        const pickable = MainScene.createEndCanvasObjects(scene);
+        MainScene.createGameObjects(scene);
 
         const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 4, 0), scene);
         camera.setTarget(new Vector3(0, 4, 50));
@@ -52,12 +51,13 @@ export default class MainScene {
                         const pickedMesh = pointerInfo.pickInfo.pickedMesh;
                         if (pickedMesh != undefined && pickedMesh.isVisible) {
                             pickedMesh.isVisible = false;
-                            pickable.forEach((v) => {
-                                if (v.name.endsWith(pickedMesh.name)) {
+                            const targetMeshName = pickedMesh.name.split("_").join("_mark_");
+                            scene.meshes.forEach((v) => {
+                                if (v.name === targetMeshName) {
                                     v.isVisible = true;
                                     new Sound(
                                         "souvenir",
-                                        "/public/sounds/"+this.getAudioFileName(pickedMesh.name),
+                                        "/public/sounds/"+pickedMesh.name+".mp3",
                                         scene,
                                         null,
                                         {volume: 0.8, loop: false, autoplay: true},
@@ -85,24 +85,6 @@ export default class MainScene {
         return [scene, hud];
     }
 
-    private static getAudioFileName(s: string): string {
-        switch (s) {
-            case 'canva_001':
-                return "souvenir_2_test.mp3";
-            case 'canva_002':
-                return "souvenir_2_test.mp3";
-            case 'canva_003':
-                return "souvenir_3_sfx.mp3";
-            case 'canva_004':
-                return "souvenir_4_sfx.mp3";
-            case 'canva_005':
-                return "souvenir_5_sfx.mp3";
-            case 'canva_006':
-                return "souvenir_6_test.mp3";
-        }
-        return "souvenir_2_test.mp3";
-    }
-
     private static createLights(scene: Scene): void {
         const light1 = new PointLight("pointLight", new Vector3(0, 1, 10), scene);
         light1.intensity = 0.2;
@@ -112,7 +94,7 @@ export default class MainScene {
         light3.intensity = 0.2;
     }
 
-    private static createCustomMeshes(scene: Scene) {
+    private static createGameObjects(scene: Scene): void {
         SceneLoader.ImportMesh(
             "",
             "public/models/",
@@ -143,7 +125,7 @@ export default class MainScene {
         appartNormale.billboardMode = Mesh.BILLBOARDMODE_Y;
         appartNormale.isVisible = false;
         const appartNormaleMat = new StandardMaterial("", scene);
-        appartNormaleMat.diffuseTexture = new Texture("/public/sprites/appart_normale.png", scene);
+        appartNormaleMat.diffuseTexture = new Texture("/public/sprites/canva_mark_001.png", scene);
         appartNormale.material = appartNormaleMat;
 
         const appartNuitLighter = MeshBuilder.CreatePlane("done_canva_002",
