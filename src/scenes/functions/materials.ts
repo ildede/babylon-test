@@ -27,7 +27,7 @@ export default function manageMaterials ( meshes: AbstractMesh[], scene: Scene )
     manageCanvasMaterial(meshesGroup.canvas, scene);
 }
 
-export default function manageMazeMaterial(mesh: AbstractMesh, scene: Scene): void {
+private function manageMazeMaterial(mesh: AbstractMesh, scene: Scene): void {
 
     const mazeMaterial = new StandardMaterial("mazeMaterial", scene);
     mazeMaterial.diffuseColor = new Color3(1, 0.5, 0.5);
@@ -35,7 +35,7 @@ export default function manageMazeMaterial(mesh: AbstractMesh, scene: Scene): vo
     mesh.material = mazeMaterial;
 }
 
-export default function manageWallsMaterial ( meshes: AbstractMesh[], scene: Scene ) {
+private function manageWallsMaterial ( meshes: AbstractMesh[], scene: Scene ) {
 
 	let meshesLength = meshes.length;
 
@@ -45,7 +45,7 @@ export default function manageWallsMaterial ( meshes: AbstractMesh[], scene: Sce
     for(let i = 0; i < meshesLength; i++) { meshes[i].material = wallMaterial; }
 }
 
-export default function manageCanvasMaterial ( meshes: AbstractMesh[], scene: Scene ) {
+private function manageCanvasMaterial ( meshes: AbstractMesh[], scene: Scene ) {
 
 	let meshesLength = meshes.length;
 
