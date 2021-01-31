@@ -3,9 +3,12 @@ import {Scene} from "@babylonjs/core/scene";
 import {Vector3, Vector4} from "@babylonjs/core/Maths/math.vector";
 import {
     AbstractMesh,
-    AnimationGroup, Geometry,
-    IParticleSystem, Light,
-    Mesh, MeshBuilder, PointerEventTypes, PointLight,
+    AnimationGroup,
+    Geometry,
+    IParticleSystem,
+    Light, Mesh, MeshBuilder,
+    PointerEventTypes,
+    PointLight,
     Skeleton,
     Sound, StandardMaterial, Texture,
     TransformNode,
@@ -27,12 +30,12 @@ export default class MainScene {
             "startSong",
             "/public/sounds/alice.mp3",
             scene,
-            () => {console.log("readyToPlay callback");},
+            null,
             {volume: 0.25, loop: true, autoplay: true}
         );
         MainScene.createLights(scene);
         MainScene.createCustomMeshes(scene);
-        const pickables = MainScene.createPickableObjects(scene);
+        const pickable = MainScene.createEndCanvasObjects(scene);
 
         const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 4, 0), scene);
         camera.setTarget(new Vector3(0, 4, 50));
@@ -48,12 +51,12 @@ export default class MainScene {
                     if (pointerInfo.pickInfo && pointerInfo.pickInfo.distance < 15) {
                         const pickedMesh = pointerInfo.pickInfo.pickedMesh;
                         if (pickedMesh != undefined) {
-                            pickables.forEach((element,index) => {
-                                if (element.name === pickedMesh?.name) {
-                                    pickables.splice(index,1);
-                                    element.position = new Vector3(0, 3, 5);
+                            pickedMesh.isVisible = false;
+                            pickable.forEach((v) => {
+                                if (v.name.endsWith(pickedMesh.name)) {
+                                    v.isVisible = true;
                                 }
-                            });
+                            })
                         }
                     }
                     break;
@@ -104,20 +107,50 @@ export default class MainScene {
         );
     }
 
-    private static createPickableObjects(scene: Scene): Mesh[] {
+    private static createEndCanvasObjects(scene: Scene): Mesh[] {
         const f = new Vector4(0.5,0, 1, 1); // front image = half the whole image along the width 
         const b = new Vector4(0,0, 0.5, 1); // back image = second half along the width 
 
-        const plane = MeshBuilder.CreatePlane("plane", 
+        const appartNormale = MeshBuilder.CreatePlane("done_canva_001",
             {height:3.5, width: 6, sideOrientation: Mesh.DOUBLESIDE, frontUVs: f, backUVs: b},
             scene);
-        plane.position = new Vector3(0, 3, 45);
-        plane.billboardMode = Mesh.BILLBOARDMODE_Y;
+        appartNormale.position = new Vector3(-15, 3, 50);
+        appartNormale.billboardMode = Mesh.BILLBOARDMODE_Y;
+        appartNormale.isVisible = false;
+        const appartNormaleMat = new StandardMaterial("", scene);
+        appartNormaleMat.diffuseTexture = new Texture("/public/sprites/appart_normale.png", scene);
+        appartNormale.material = appartNormaleMat;
 
-        const mat = new StandardMaterial("", scene);
-        mat.diffuseTexture = new Texture("/public/sprites/souvenir2.png", scene);
-        plane.material = mat;
+        const appartNuitLighter = MeshBuilder.CreatePlane("done_canva_002",
+            {height:3.5, width: 6, sideOrientation: Mesh.DOUBLESIDE, frontUVs: f, backUVs: b},
+            scene);
+        appartNuitLighter.position = new Vector3(-15, 3, 40);
+        appartNuitLighter.billboardMode = Mesh.BILLBOARDMODE_Y;
+        appartNuitLighter.isVisible = false;
+        const appartNuitLighterMat = new StandardMaterial("", scene);
+        appartNuitLighterMat.diffuseTexture = new Texture("/public/sprites/appart_nuit_lighter.png", scene);
+        appartNuitLighter.material = appartNuitLighterMat;
 
-        return [plane];
+        const jardinLapinVieilli = MeshBuilder.CreatePlane("done_canva_003",
+            {height:3.5, width: 6, sideOrientation: Mesh.DOUBLESIDE, frontUVs: f, backUVs: b},
+            scene);
+        jardinLapinVieilli.position = new Vector3(-15, 3, 30);
+        jardinLapinVieilli.billboardMode = Mesh.BILLBOARDMODE_Y;
+        jardinLapinVieilli.isVisible = false;
+        const jardinLapinVieilliMat = new StandardMaterial("", scene);
+        jardinLapinVieilliMat.diffuseTexture = new Texture("/public/sprites/jardin_lapin_vieilli.png", scene);
+        jardinLapinVieilli.material = jardinLapinVieilliMat;
+
+        const souvguerre = MeshBuilder.CreatePlane("done_canva_004",
+            {height:3.5, width: 6, sideOrientation: Mesh.DOUBLESIDE, frontUVs: f, backUVs: b},
+            scene);
+        souvguerre.position = new Vector3(-15, 3, 20);
+        souvguerre.billboardMode = Mesh.BILLBOARDMODE_Y;
+        souvguerre.isVisible = false;
+        const souvguerreMat = new StandardMaterial("", scene);
+        souvguerreMat.diffuseTexture = new Texture("/public/sprites/souvguerre.png", scene);
+        souvguerre.material = souvguerreMat;
+
+        return [appartNormale, appartNuitLighter, jardinLapinVieilli, souvguerre];
     }
 }

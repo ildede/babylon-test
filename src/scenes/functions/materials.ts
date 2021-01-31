@@ -38,10 +38,13 @@ function manageWallsMaterial(meshes: AbstractMesh[], scene: Scene): void {
     meshes.forEach((mesh) => mesh.material = wallMaterial);
 }
 
-function manageCanvasMaterial ( meshes: AbstractMesh[], scene: Scene ): void {
+function manageCanvasMaterial(meshes: AbstractMesh[], scene: Scene): void {
 
     const canvasMaterial = new StandardMaterial("canvasMaterial", scene);
     canvasMaterial.diffuseColor = new Color3(0.5, 1, 0.5);
 
-    meshes.forEach((mesh) => mesh.material = canvasMaterial);
+    meshes.forEach((mesh) => {
+        mesh.isPickable = true;
+        mesh.material = canvasMaterial;
+    });
 }
