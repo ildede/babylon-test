@@ -36,14 +36,14 @@ export default class MainScene {
         MainScene.createMainLight(scene);
         MainScene.createGameObjects(scene);
 
-        const hud = new Hud(scene);
-
         const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 4, 0), scene);
         camera.setTarget(new Vector3(0, 4, 50));
         camera.attachControl(canvas, true);
         camera.ellipsoid = new Vector3(2, 2, 2);
         camera.applyGravity = true;
         camera.checkCollisions = true;
+
+        const hud = new Hud(scene, camera, canvas);
 
         scene.onPointerObservable.add((pointerInfo) => {
             switch (pointerInfo.type) {
