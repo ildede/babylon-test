@@ -28,10 +28,10 @@ export default class MainScene {
         //--SOUNDS--
         new Sound(
             "startSong",
-            "/public/sounds/alice.mp3",
+            "/public/sounds/bgm_v3.mp3",
             scene,
             null,
-            {volume: 0.25, loop: true, autoplay: true}
+            {volume: 0.20, loop: true, autoplay: true}
         );
         MainScene.createLights(scene);
         MainScene.createCustomMeshes(scene);
@@ -50,11 +50,18 @@ export default class MainScene {
                     console.log("POINTER PICK", pointerInfo);
                     if (pointerInfo.pickInfo && pointerInfo.pickInfo.distance < 15) {
                         const pickedMesh = pointerInfo.pickInfo.pickedMesh;
-                        if (pickedMesh != undefined) {
+                        if (pickedMesh != undefined && pickedMesh.isVisible) {
                             pickedMesh.isVisible = false;
                             pickable.forEach((v) => {
                                 if (v.name.endsWith(pickedMesh.name)) {
                                     v.isVisible = true;
+                                    new Sound(
+                                        "souvenir",
+                                        "/public/sounds/"+this.getAudioFileName(pickedMesh.name),
+                                        scene,
+                                        null,
+                                        {volume: 0.8, loop: false, autoplay: true},
+                                    );
                                 }
                             })
                         }
@@ -76,6 +83,24 @@ export default class MainScene {
         });
         const hud = new Hud(scene);
         return [scene, hud];
+    }
+
+    private static getAudioFileName(s: string): string {
+        switch (s) {
+            case 'canva_001':
+                return "souvenir_2_test.mp3";
+            case 'canva_002':
+                return "souvenir_2_test.mp3";
+            case 'canva_003':
+                return "souvenir_3_sfx.mp3";
+            case 'canva_004':
+                return "souvenir_4_sfx.mp3";
+            case 'canva_005':
+                return "souvenir_5_sfx.mp3";
+            case 'canva_006':
+                return "souvenir_6_test.mp3";
+        }
+        return "souvenir_2_test.mp3";
     }
 
     private static createLights(scene: Scene): void {
