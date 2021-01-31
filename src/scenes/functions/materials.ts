@@ -20,21 +20,21 @@ export default function manageMaterials(meshes: AbstractMesh[], scene: Scene): v
     };
 
     meshes.forEach((mesh) => {
-        
+
         if (mesh.name.startsWith('wall')) {
-            
+
             meshesGroup.walls.push(mesh);
-            
+
         } else if (mesh.name.startsWith('canva')) {
-            
+
             meshesGroup.canvas.push(mesh);
-            
+
         } else if (mesh.name.startsWith('canva_mark')) {
-            
+
             meshesGroup.canvas.push(mesh);
-            
+
         } else if (mesh.name.startsWith('path_mark')) {
-            
+
             meshesGroup.canvas.push(mesh);
         }
     });
@@ -48,12 +48,12 @@ export default function manageMaterials(meshes: AbstractMesh[], scene: Scene): v
 }
 
 function manageMazeMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
-    
+
     if (mesh) {
-        
+
         const mazeMaterial = new StandardMaterial("mazeMaterial", scene);
         mazeMaterial.diffuseColor = new Color3(1, 0.5, 0.5);
-        
+
         mesh.material = mazeMaterial;
     }
 }
@@ -61,7 +61,7 @@ function manageMazeMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
 function manageEndDoorMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
 
     if (mesh) {
-        
+
         const doorMaterial = new StandardMaterial("doorMaterial", scene);
         doorMaterial.diffuseColor = new Color3(0.5, 0.5, 1);
 
@@ -70,15 +70,15 @@ function manageEndDoorMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void
 }
 
 function manageWallsMaterial(meshes: AbstractMesh[], scene: Scene): void {
-    
+
     const wallMaterial = new StandardMaterial("wallMaterial", scene);
-        wallMaterial.diffuseColor = new Color3(1, 0.5, 0.5);
-    
+    wallMaterial.diffuseColor = new Color3(1, 0.5, 0.5);
+
     meshes.forEach((mesh) => { mesh.material = wallMaterial; });
 }
 
 function manageCanvasMaterial(meshes: AbstractMesh[], scene: Scene): void {
-    
+
     meshes.forEach((mesh) => {
         const canvasMaterial = new StandardMaterial("canvasMaterial", scene);
         // canvasMaterial.diffuseColor = new Color3(0.5, 1, 0.5);
@@ -89,18 +89,18 @@ function manageCanvasMaterial(meshes: AbstractMesh[], scene: Scene): void {
 }
 
 function manageCanvasMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
-    
+
     const canvaMarkMaterial = new StandardMaterial("wallMaterial", scene);
-        canvaMarkMaterial.diffuseColor = new Color3(0.5, 1, 0.5);
-    
+    canvaMarkMaterial.diffuseColor = new Color3(0.5, 1, 0.5);
+
     meshes.forEach((mesh) => { mesh.material = canvaMarkMaterial; });
 }
 
 function managePathsMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
-    
+
     const pathMarkMaterial = new StandardMaterial("wallMaterial", scene);
-        pathMarkMaterial.diffuseColor = new Color3(1, 1, 0.5);
-    
+    pathMarkMaterial.diffuseColor = new Color3(1, 1, 0.5);
+
     meshes.forEach((mesh) => { mesh.material = pathMarkMaterial; });
 }
 
