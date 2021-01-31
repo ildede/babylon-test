@@ -28,16 +28,16 @@ export default class StartScene {
         const startbg = new Image("startbg", "/public/sprites/labyrinth.jpg");
         imageRect.addControl(startbg);
 
-        const title = new TextBlock("title", "LOST AND FOUND");
-        title.resizeToFit = true;
-        title.fontFamily = "Ceviche One";
-        title.fontSize = "64px";
-        title.color = "white";
-        title.resizeToFit = true;
-        title.top = "14px";
-        title.width = 0.8;
-        title.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-        imageRect.addControl(title);
+        // const title = new TextBlock("title", "LOST AND FOUND");
+        // title.resizeToFit = true;
+        // title.fontFamily = "Ceviche One";
+        // title.fontSize = "64px";
+        // title.color = "white";
+        // title.resizeToFit = true;
+        // title.top = "14px";
+        // title.width = 0.8;
+        // title.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
+        // imageRect.addControl(title);
 
         const startBtn = Button.CreateSimpleButton("start", "ENTER");
         startBtn.fontFamily = "Viga";
@@ -45,6 +45,7 @@ export default class StartScene {
         startBtn.height = 0.1;
         startBtn.color = "white";
         startBtn.thickness = 2;
+        startBtn.top = "60px"
         startBtn.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
         startBtn.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
         imageRect.addControl(startBtn);

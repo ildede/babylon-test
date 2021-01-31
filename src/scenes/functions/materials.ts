@@ -98,7 +98,7 @@ function manageWallsMaterial(meshes: AbstractMesh[], scene: Scene): void {
 
    const wallMaterial = new StandardMaterial("wallMaterial", scene);
    wallMaterial.diffuseTexture = new Texture('/public/textures/mazewalls_diffuse.png', scene);
-   wallMaterial.diffuseTexture.hasAlpha = true;
+   // wallMaterial.diffuseTexture.hasAlpha = true;
    wallMaterial.emissiveTexture = new Texture('/public/textures/mazewalls_emissive.jpg', scene);
 
    meshes.forEach((mesh) => { mesh.material = wallMaterial; });
@@ -107,12 +107,9 @@ function manageWallsMaterial(meshes: AbstractMesh[], scene: Scene): void {
 function manageCanvasMaterialAndCanvasLight(meshes: AbstractMesh[], scene: Scene): void {
 
     meshes.forEach((mesh) => {
-        console.log(mesh);
-        console.log(mesh.name);
-        
         const canvaMaterial = new StandardMaterial("canvaMaterial", scene);
-        canvaMaterial.diffuseTexture = new Texture('/public/textures/' + mesh.name + '_diffuse.jpg', scene);
-        canvaMaterial.emissiveTexture = new Texture('/public/textures/' + mesh.name + '_diffuse.jpg', scene);
+        canvaMaterial.diffuseTexture = new Texture('/public/sprites/' + mesh.name + '.png', scene);
+        canvaMaterial.emissiveTexture = new Texture('/public/sprites/' + mesh.name + '.png', scene);
         canvaMaterial.specularColor = new Color3(0, 0, 0);
         canvaMaterial.emissiveColor = new Color3(0.1,0.1,0.1);
 

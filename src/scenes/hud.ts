@@ -67,8 +67,8 @@ export class Hud {
                 setTimeout(() => {
                     imageRect.dispose();
                     this.canPlayerMove = true;
-                }, 2000);
-            }, 2000);
+                }, 3000);
+            }, 3000);
 
         } else {
             const startbg = new Image("startbg", "/public/sprites/"+targetName+".png");
