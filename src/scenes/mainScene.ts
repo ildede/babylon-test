@@ -4,7 +4,7 @@ import {Vector3, Vector4} from "@babylonjs/core/Maths/math.vector";
 import {
     AbstractMesh,
     AnimationGroup,
-    Geometry,
+    Geometry, GlowLayer,
     IParticleSystem,
     Light, Mesh, MeshBuilder,
     PointerEventTypes,
@@ -94,19 +94,14 @@ export default class MainScene {
     }
 
     private static createGameObjects(scene: Scene): void {
+        const gl = new GlowLayer("glow", scene);
+        gl.intensity = 2;
         SceneLoader.ImportMesh(
             "",
             "public/models/",
             "scene.babylon",
             scene,
             (allMeshes: AbstractMesh[], particles: IParticleSystem[], skeletons: Skeleton[], animations: AnimationGroup[], transforms: TransformNode[], geometries: Geometry[], lights: Light[]) => {
-                console.log('allMeshes', allMeshes);
-                console.log('particles', particles);
-                console.log('skeletons', skeletons);
-                console.log('animations', animations);
-                console.log('transforms', transforms);
-                console.log('geometries', geometries);
-                console.log('lights', lights);
                 manageMazeMaterial(allMeshes, scene);
             },
             () => { console.log("on progress"); }
