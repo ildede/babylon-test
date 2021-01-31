@@ -1,4 +1,4 @@
-import {AbstractMesh, Color3, Nullable, StandardMaterial} from "@babylonjs/core";
+import {AbstractMesh, Color3, Nullable, StandardMaterial, Texture} from "@babylonjs/core";
 import {Scene} from "@babylonjs/core/scene";
 
 export default function manageMaterials(meshes: AbstractMesh[], scene: Scene): void {
@@ -40,11 +40,29 @@ function manageWallsMaterial(meshes: AbstractMesh[], scene: Scene): void {
 
 function manageCanvasMaterial(meshes: AbstractMesh[], scene: Scene): void {
 
-    const canvasMaterial = new StandardMaterial("canvasMaterial", scene);
-    canvasMaterial.diffuseColor = new Color3(0.5, 1, 0.5);
-
     meshes.forEach((mesh) => {
+        const canvasMaterial = new StandardMaterial("canvasMaterial", scene);
+        canvasMaterial.diffuseColor = new Color3(0.5, 1, 0.5);
+        canvasMaterial.diffuseTexture = new Texture("/public/sprites/"+getTextureName(mesh.name), scene);
         mesh.isPickable = true;
         mesh.material = canvasMaterial;
     });
+}
+
+function getTextureName(s: string): string {
+    switch (s) {
+        case 'canva_001':
+            return "haut_de_forme.png";
+        case 'canva_002':
+            return "journal.png";
+        case 'canva_003':
+            return "lapin.png";
+        case 'canva_004':
+            return "haut_de_forme.png";
+        case 'canva_005':
+            return "journal.png";
+        case 'canva_006':
+            return "lapin.png";
+    }
+    return "";
 }
