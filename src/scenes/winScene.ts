@@ -35,58 +35,58 @@ export default class WinScene {
             imageRect.addControl(displayedImage1);
 
             setTimeout(() => {
-                displayedImage1.dispose();
+                // displayedImage1.dispose();
 
                 const displayedImage2 = new Image("bg2", "/public/sprites/canva_mark_007_2.png");
                 imageRect.addControl(displayedImage2);
 
                 setTimeout(() => {
-                    displayedImage2.dispose();
+                    // displayedImage2.dispose();
 
                     const displayedImage3 = new Image("bg3", "/public/sprites/canva_mark_007_3.png");
                     imageRect.addControl(displayedImage3);
 
 
                     setTimeout(() => {
-                        displayedImage3.dispose();
+                        // displayedImage3.dispose();
 
                         const displayedImage4 = new Image("bg4", "/public/sprites/canva_mark_007_4.png");
                         imageRect.addControl(displayedImage4);
 
 
                         setTimeout(() => {
-                            displayedImage4.dispose();
+                            // displayedImage4.dispose();
 
                             const displayedImage5 = new Image("bg5", "/public/sprites/canva_mark_007_5.png");
                             imageRect.addControl(displayedImage5);
 
                             setTimeout(() => {
-                                displayedImage5.dispose();
+                                // displayedImage5.dispose();
 
                                 const displayedImage6 = new Image("bg6", "/public/sprites/canva_mark_007_6.png");
                                 imageRect.addControl(displayedImage6);
 
                                 setTimeout(() => {
-                                    displayedImage6.dispose();
+                                    // displayedImage6.dispose();
 
                                     const displayedImage7 = new Image("bg7", "/public/sprites/canva_mark_007_7.png");
                                     imageRect.addControl(displayedImage7);
 
 
                                     setTimeout(() => {
-                                        displayedImage7.dispose();
+                                        // displayedImage7.dispose();
 
                                         const displayedImage8 = new Image("bg8", "/public/sprites/canva_mark_007_8.png");
                                         imageRect.addControl(displayedImage8);
 
                                         setTimeout(() => {
-                                            displayedImage8.dispose();
+                                            // displayedImage8.dispose();
 
                                             const displayedImage9 = new Image("bg9", "/public/sprites/canva_mark_007_9.png");
                                             imageRect.addControl(displayedImage9);
 
                                             setTimeout(() => {
-                                                displayedImage9.dispose();
+                                                // displayedImage9.dispose();
 
                                                 const displayedImage10 = new Image("bg10", "/public/sprites/canva_mark_007_10.png");
                                                 imageRect.addControl(displayedImage10);
@@ -112,25 +112,25 @@ export default class WinScene {
                                                     scene.detachControl(); //observables disabled
                                                 });
 
-                                            }, 2000);
+                                            }, 2500);
 
-                                        }, 2000);
+                                        }, 2500);
 
-                                    }, 2000);
+                                    }, 2500);
 
-                                }, 2000);
+                                }, 2500);
 
-                            }, 2000);
+                            }, 2500);
 
-                        }, 2000);
+                        }, 2500);
 
-                    }, 2000);
+                    }, 2500);
 
-                }, 2000);
+                }, 2500);
 
-            }, 2000);
+            }, 2500);
 
-        }, 2000);
+        }, 2500);
 
 
         //set up transition effect : modified version of https://www.babylonjs-playground.com/#2FGYE8#0
