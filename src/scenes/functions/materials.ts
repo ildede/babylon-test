@@ -1,4 +1,4 @@
-import {AbstractMesh, Color3, MultiMaterial, Nullable, PointLight, StandardMaterial, Texture} from "@babylonjs/core";
+import {AbstractMesh, Color3, MultiMaterial, Nullable, StandardMaterial, Texture} from "@babylonjs/core";
 import {Scene} from "@babylonjs/core/scene";
 
 export default function manageMaterials(meshes: AbstractMesh[], scene: Scene): void {
@@ -43,6 +43,7 @@ export default function manageMaterials(meshes: AbstractMesh[], scene: Scene): v
         }
     });
 
+    console.log(meshesGroup);
     manageMazeMaterial(meshesGroup.maze, scene);
     manageEndDoorMaterial(meshesGroup.endDoors, scene);
     manageWallsMaterial(meshesGroup.walls, scene);
@@ -59,8 +60,8 @@ function manageMazeMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
         const mazeGroundsMaterial = new StandardMaterial("mazeGroundsMaterial", scene);
         const mazeMultiMaterial = new MultiMaterial("mazeMultiMaterial", scene);
 
-        mazeGroundsMaterial.diffuseTexture = new Texture('public/textures/mazegrounds_diffuse.png', scene);
-        mazeGroundsMaterial.emissiveTexture = new Texture('public/textures/mazegrounds_emissive.jpg', scene);
+        mazeGroundsMaterial.diffuseTexture = new Texture('/public/textures/mazegrounds_diffuse.png', scene);
+        mazeGroundsMaterial.emissiveTexture = new Texture('/public/textures/mazegrounds_emissive.jpg', scene);
         mazeGroundsMaterial.emissiveColor = new Color3(0.5,0.5,0.5);
         console.log(mazeGroundsMaterial.diffuseTexture);
         // @ts-ignore
@@ -68,10 +69,10 @@ function manageMazeMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
         // @ts-ignore
         mazeGroundsMaterial.diffuseTexture.vScale = 10;
 
-        mazeWallsMaterial.diffuseTexture = new Texture('public/textures/mazewalls_diffuse.png', scene);
+        mazeWallsMaterial.diffuseTexture = new Texture('/public/textures/mazewalls_diffuse.png', scene);
         // @ts-ignore
         mazeWallsMaterial.diffuseTexture.uScale = 4;
-        mazeWallsMaterial.emissiveTexture = new Texture('public/textures/mazewalls_emissive.jpg', scene);
+        mazeWallsMaterial.emissiveTexture = new Texture('/public/textures/mazewalls_emissive.jpg', scene);
         mazeWallsMaterial.emissiveColor = new Color3(0.25,0.25,0.25);
         // @ts-ignore
         mazeWallsMaterial.emissiveTexture.vScale = 4;
@@ -96,28 +97,32 @@ function manageEndDoorMaterial(meshes: AbstractMesh[], scene: Scene): void {
 function manageWallsMaterial(meshes: AbstractMesh[], scene: Scene): void {
 
    const wallMaterial = new StandardMaterial("wallMaterial", scene);
-   wallMaterial.diffuseTexture = new Texture('public/textures/mazewalls_diffuse.png', scene);
+   wallMaterial.diffuseTexture = new Texture('/public/textures/mazewalls_diffuse.png', scene);
    wallMaterial.diffuseTexture.hasAlpha = true;
-   wallMaterial.emissiveTexture = new Texture('public/textures/mazewalls_emissive.jpg', scene);
+   wallMaterial.emissiveTexture = new Texture('/public/textures/mazewalls_emissive.jpg', scene);
 
     meshes.forEach((mesh) => { mesh.material = wallMaterial; });
 }
 
 function manageCanvasMaterialAndCanvasLight(meshes: AbstractMesh[], scene: Scene): void {
 
-    meshes.forEach((mesh, index) => {
+    meshes.forEach((mesh) => {
+        console.log(mesh);
+        console.log(mesh.name);
+        
         const canvaMaterial = new StandardMaterial("canvaMaterial", scene);
-        canvaMaterial.diffuseTexture = new Texture('public/textures/canva_00' + (index + 1) + '_diffuse.jpg', scene);
-        canvaMaterial.emissiveTexture = new Texture('public/textures/canva_00' + (index + 1) + '_diffuse.jpg', scene);
+        canvaMaterial.diffuseTexture = new Texture('/public/textures/' + mesh.name + '_diffuse.jpg', scene);
+        canvaMaterial.emissiveTexture = new Texture('/public/textures/' + mesh.name + '_diffuse.jpg', scene);
         canvaMaterial.specularColor = new Color3(0, 0, 0);
         canvaMaterial.emissiveColor = new Color3(0.1,0.1,0.1);
 
-        const light = new PointLight("light_"+mesh.name, mesh.position, scene);
-        // const light = new SpotLight("light_"+mesh.name, mesh.position, new Vector3(0, -1, 0), Math.PI / 2, 10, scene);
-        light.diffuse = new Color3(0, 1, 0);
-        light.specular = new Color3(0, 1, 0);
-        light.intensity = 0.05;
-        light.parent = mesh;
+        mesh.material = canvaMaterial;
+        // const light = new PointLight("light_"+mesh.name, mesh.position, scene);
+        // // const light = new SpotLight("light_"+mesh.name, mesh.position, new Vector3(0, -1, 0), Math.PI / 2, 10, scene);
+        // light.diffuse = new Color3(0, 1, 0);
+        // light.specular = new Color3(0, 1, 0);
+        // light.intensity = 0.05;
+        // light.parent = mesh;
     })
 }
 
