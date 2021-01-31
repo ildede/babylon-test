@@ -31,7 +31,7 @@ export default class MainScene {
             "/public/sounds/bgm.mp3",
             scene,
             null,
-            {volume: 0.20, loop: true, autoplay: true}
+            {volume: 1, loop: true, autoplay: true }
         );
         MainScene.createLights(scene);
         MainScene.createGameObjects(scene);
@@ -60,7 +60,7 @@ export default class MainScene {
                                         "/public/sounds/"+pickedMesh.name+".mp3",
                                         scene,
                                         null,
-                                        {volume: 0.8, loop: false, autoplay: true},
+                                        {volume: 1, loop: false, autoplay: true},
                                     );
                                 }
                             })
