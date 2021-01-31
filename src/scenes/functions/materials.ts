@@ -63,7 +63,6 @@ function manageMazeMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
         mazeGroundsMaterial.diffuseTexture = new Texture('/public/textures/mazegrounds_diffuse.png', scene);
         mazeGroundsMaterial.emissiveTexture = new Texture('/public/textures/mazegrounds_emissive.jpg', scene);
         mazeGroundsMaterial.emissiveColor = new Color3(0.5,0.5,0.5);
-        console.log(mazeGroundsMaterial.diffuseTexture);
         // @ts-ignore
         mazeGroundsMaterial.diffuseTexture.uScale = 10;
         // @ts-ignore
