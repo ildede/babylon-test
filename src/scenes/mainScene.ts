@@ -47,7 +47,15 @@ export default class MainScene {
                 case PointerEventTypes.POINTERPICK:
                     console.log("POINTER PICK", pointerInfo);
                     if (pointerInfo.pickInfo && pointerInfo.pickInfo.distance < 15) {
-                        console.log('pick up please');
+                        const pickedMesh = pointerInfo.pickInfo.pickedMesh;
+                        if (pickedMesh != undefined) {
+                            pickables.forEach((element,index) => {
+                                if (element.name === pickedMesh?.name) {
+                                    pickables.splice(index,1);
+                                    element.position = new Vector3(0, 3, 5);
+                                }
+                            });
+                        }
                     }
                     break;
             }
