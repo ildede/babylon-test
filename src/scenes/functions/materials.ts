@@ -1,6 +1,32 @@
 import {AbstractMesh, Color3, StandardMaterial} from "@babylonjs/core";
 import {Scene} from "@babylonjs/core/scene";
 
+export default function manageMaterials ( meshes: AbstractMesh[], scene: Scene ): void {
+
+	let meshesLength = meshes.length, 
+    meshesGroup = {
+        maze : scene.getMeshByName('maze'),
+        walls : [],
+        canvas : [],
+    };
+
+    for(let i = 0; i < meshesLength; i++) {
+
+        if(meshes[i].name.substr(0, 4) == 'wall') {
+
+			meshesGroup.walls.push(meshes[i]);
+
+        } else if(meshes[i].name.substr(0, 5) == 'canva') {
+
+			meshesGroup.canvas.push(meshes[i]);
+        }
+    }
+
+    manageMazeMaterial(meshesGroup.maze, scene);
+    manageWallsMaterial(meshesGroup.walls, scene);
+    manageCanvasMaterial(meshesGroup.canvas, scene);
+}
+
 export default function manageMazeMaterial(mesh: AbstractMesh, scene: Scene): void {
 
     const mazeMaterial = new StandardMaterial("mazeMaterial", scene);
@@ -8,3 +34,23 @@ export default function manageMazeMaterial(mesh: AbstractMesh, scene: Scene): vo
 
     mesh.material = mazeMaterial;
 }
+
+export default function manageWallsMaterial ( meshes: AbstractMesh[], scene: Scene ) {
+
+	let meshesLength = meshes.length;
+
+    let wallMaterial = new BABYLON.StandardMaterial("wallMaterial", scene);
+    wallMaterial.diffuseColor = new BABYLON.Color3(1, 0.5, 0.5);
+
+    for(let i = 0; i < meshesLength; i++) { meshes[i].material = wallMaterial; }
+}
+
+export default function manageCanvasMaterial ( meshes: AbstractMesh[], scene: Scene ) {
+
+	let meshesLength = meshes.length;
+
+    let wallMaterial = new BABYLON.StandardMaterial("wallMaterial", scene);
+    wallMaterial.diffuseColor = new BABYLON.Color3(0.5, 1, 0.5);
+
+    for(let i = 0; i < meshesLength; i++) { meshes[i].material = wallMaterial; }
+} 
