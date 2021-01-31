@@ -33,7 +33,7 @@ export default class MainScene {
             null,
             {volume: 1, loop: true, autoplay: true }
         );
-        MainScene.createLights(scene);
+        MainScene.createMainLight(scene);
         MainScene.createGameObjects(scene);
 
         const hud = new Hud(scene);
@@ -87,13 +87,9 @@ export default class MainScene {
         return [scene, hud];
     }
 
-    private static createLights(scene: Scene): void {
+    private static createMainLight(scene: Scene): void {
         const light1 = new PointLight("pointLight", new Vector3(0, 1, 10), scene);
         light1.intensity = 0.2;
-        const light2 = new PointLight("pointLight", new Vector3(0, 1, 40), scene);
-        light2.intensity = 0.2;
-        const light3 = new PointLight("pointLight", new Vector3(60, 1, 40), scene);
-        light3.intensity = 0.2;
     }
 
     private static createGameObjects(scene: Scene): void {

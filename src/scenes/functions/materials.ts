@@ -1,4 +1,4 @@
-import {AbstractMesh, Color3, MultiMaterial, Nullable, StandardMaterial, Texture} from "@babylonjs/core";
+import {AbstractMesh, Color3, MultiMaterial, Nullable, PointLight, StandardMaterial, Texture} from "@babylonjs/core";
 import {Scene} from "@babylonjs/core/scene";
 
 export default function manageMaterials(meshes: AbstractMesh[], scene: Scene): void {
@@ -42,7 +42,7 @@ export default function manageMaterials(meshes: AbstractMesh[], scene: Scene): v
     manageMazeMaterial(meshesGroup.maze, scene);
     manageEndDoorMaterial(meshesGroup.endDoor, scene);
     manageWallsMaterial(meshesGroup.walls, scene);
-    manageCanvasMaterial(meshesGroup.canvas, scene);
+    manageCanvasMaterialAndCanvasLight(meshesGroup.canvas, scene);
     manageCanvasMarksMaterial(meshesGroup.canvasMarks, scene);
     managePathsMarksMaterial(meshesGroup.pathsMarks, scene);
 }
@@ -84,13 +84,21 @@ function manageWallsMaterial(meshes: AbstractMesh[], scene: Scene): void {
     meshes.forEach((mesh) => { mesh.material = wallMaterial; });
 }
 
-function manageCanvasMaterial(meshes: AbstractMesh[], scene: Scene): void {
+function manageCanvasMaterialAndCanvasLight(meshes: AbstractMesh[], scene: Scene): void {
 
     meshes.forEach((mesh) => {
+
         const canvasMaterial = new StandardMaterial("canvasMaterial", scene);
         canvasMaterial.diffuseTexture = new Texture("/public/sprites/"+mesh.name+".png", scene);
         mesh.isPickable = true;
         mesh.material = canvasMaterial;
+
+        const light = new PointLight("light_"+mesh.name, mesh.position, scene);
+        // const light = new SpotLight("light_"+mesh.name, mesh.position, new Vector3(0, -1, 0), Math.PI / 2, 10, scene);
+        light.diffuse = new Color3(0, 1, 0);
+        light.specular = new Color3(0, 1, 0);
+        light.intensity = 0.05;
+        light.parent = mesh;
     });
 }
 
