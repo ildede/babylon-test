@@ -28,7 +28,7 @@ export default class MainScene {
         //--SOUNDS--
         new Sound(
             "startSong",
-            "/public/sounds/bgm_v3.mp3",
+            "/public/sounds/bgm.mp3",
             scene,
             null,
             {volume: 0.20, loop: true, autoplay: true}
