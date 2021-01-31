@@ -39,4 +39,7 @@ export class Hud {
         // console.log("Update hud!");
     }
 
+    showCanvas(targetName: string): void {
+        console.log("please display this canvas", targetName)
+    }
 }

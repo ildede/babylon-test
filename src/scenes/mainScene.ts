@@ -36,6 +36,8 @@ export default class MainScene {
         MainScene.createLights(scene);
         MainScene.createGameObjects(scene);
 
+        const hud = new Hud(scene);
+
         const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 4, 0), scene);
         camera.setTarget(new Vector3(0, 4, 50));
         camera.attachControl(canvas, true);
@@ -62,6 +64,7 @@ export default class MainScene {
                                         null,
                                         {volume: 1, loop: false, autoplay: true},
                                     );
+                                    hud.showCanvas(targetMeshName);
                                 }
                             })
                         }
@@ -81,7 +84,6 @@ export default class MainScene {
                 goToLoseScene();
             }
         });
-        const hud = new Hud(scene);
         return [scene, hud];
     }
 
