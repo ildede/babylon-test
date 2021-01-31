@@ -3,22 +3,22 @@ import {Scene} from "@babylonjs/core/scene";
 
 export default function manageMaterials ( meshes: AbstractMesh[], scene: Scene ): void {
 
-	let meshesLength = meshes.length, 
-    meshesGroup = {
-        maze : scene.getMeshByName('maze'),
-        walls : [],
-        canvas : [],
-    };
+    const meshesLength = meshes.length,
+        meshesGroup = {
+            maze : scene.getMeshByName('maze'),
+            walls : [],
+            canvas : [],
+        };
 
     for(let i = 0; i < meshesLength; i++) {
 
         if(meshes[i].name.substr(0, 4) == 'wall') {
 
-			meshesGroup.walls.push(meshes[i]);
+            meshesGroup.walls.push(meshes[i]);
 
         } else if(meshes[i].name.substr(0, 5) == 'canva') {
 
-			meshesGroup.canvas.push(meshes[i]);
+            meshesGroup.canvas.push(meshes[i]);
         }
     }
 
@@ -27,7 +27,7 @@ export default function manageMaterials ( meshes: AbstractMesh[], scene: Scene )
     manageCanvasMaterial(meshesGroup.canvas, scene);
 }
 
-private function manageMazeMaterial(mesh: AbstractMesh, scene: Scene): void {
+function manageMazeMaterial(mesh: AbstractMesh, scene: Scene): void {
 
     const mazeMaterial = new StandardMaterial("mazeMaterial", scene);
     mazeMaterial.diffuseColor = new Color3(1, 0.5, 0.5);
@@ -35,22 +35,22 @@ private function manageMazeMaterial(mesh: AbstractMesh, scene: Scene): void {
     mesh.material = mazeMaterial;
 }
 
-private function manageWallsMaterial ( meshes: AbstractMesh[], scene: Scene ): void {
+function manageWallsMaterial ( meshes: AbstractMesh[], scene: Scene ): void {
 
-	let meshesLength = meshes.length;
+    const meshesLength = meshes.length;
 
-    let wallMaterial = new StandardMaterial("wallMaterial", scene);
+    const wallMaterial = new StandardMaterial("wallMaterial", scene);
     wallMaterial.diffuseColor = new Color3(1, 0.5, 0.5);
 
     for(let i = 0; i < meshesLength; i++) { meshes[i].material = wallMaterial; }
 }
 
-private function manageCanvasMaterial ( meshes: AbstractMesh[], scene: Scene ): void {
+function manageCanvasMaterial ( meshes: AbstractMesh[], scene: Scene ): void {
 
-	let meshesLength = meshes.length;
+    const meshesLength = meshes.length;
 
-    let wallMaterial = new StandardMaterial("wallMaterial", scene);
+    const wallMaterial = new StandardMaterial("wallMaterial", scene);
     wallMaterial.diffuseColor = new Color3(0.5, 1, 0.5);
 
     for(let i = 0; i < meshesLength; i++) { meshes[i].material = wallMaterial; }
-} 
+}

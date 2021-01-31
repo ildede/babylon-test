@@ -1,7 +1,6 @@
 import {Engine} from "@babylonjs/core/Engines/engine";
 import {Scene} from "@babylonjs/core/scene";
 import {Vector3, Vector4} from "@babylonjs/core/Maths/math.vector";
-import {HemisphericLight} from "@babylonjs/core/Lights/hemisphericLight";
 import {
     AbstractMesh,
     AnimationGroup, Geometry,
@@ -99,10 +98,7 @@ export default class MainScene {
                 console.log('transforms', transforms);
                 console.log('geometries', geometries);
                 console.log('lights', lights);
-                allMeshes.forEach((mesh) => {
-                    console.log('Work with mesh', mesh);
-                    manageMazeMaterial(mesh, scene);
-                })
+                manageMazeMaterial(allMeshes, scene);
             },
             () => { console.log("on progress"); }
         );
