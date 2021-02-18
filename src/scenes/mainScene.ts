@@ -60,6 +60,7 @@ export default class MainScene {
                                 if (v.name === targetMeshName) {
                                     v.isVisible = true;
                                     bgSound.setVolume(0, 2);
+                                    camera.inputs.clear();
                                     const memSound = new Sound(
                                         "souvenir",
                                         "/public/sounds/"+targetAudioName+".mp3",
@@ -69,6 +70,9 @@ export default class MainScene {
                                     );
                                     memSound.onEndedObservable.add((eventData, eventState) => {
                                         bgSound.setVolume(1, 2);
+                                        camera.inputs.addKeyboard();
+                                        camera.inputs.addMouse();
+                                        camera.attachControl(canvas, true);
                                     })
                                     hud.showCanvas(targetMeshName);
                                 }
