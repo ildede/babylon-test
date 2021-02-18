@@ -43,7 +43,7 @@ export default function manageMaterials(meshes: AbstractMesh[], scene: Scene): v
         }
     });
 
-    console.log(meshesGroup);
+
     manageMazeMaterial(meshesGroup.maze, scene);
     manageEndDoorMaterial(meshesGroup.endDoors, scene);
     manageWallsMaterial(meshesGroup.walls, scene);
