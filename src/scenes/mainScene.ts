@@ -68,13 +68,14 @@ export default class MainScene {
                                         null,
                                         {volume: 1, loop: false, autoplay: true},
                                     );
+                                    const rectangle = hud.showCanvas(targetMeshName);
                                     memSound.onEndedObservable.add((eventData, eventState) => {
                                         bgSound.setVolume(1, 2);
+                                        rectangle.dispose();
                                         camera.inputs.addKeyboard();
                                         camera.inputs.addMouse();
                                         camera.attachControl(canvas, true);
                                     })
-                                    hud.showCanvas(targetMeshName);
                                 }
                             })
                         }

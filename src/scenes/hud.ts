@@ -10,8 +10,6 @@ export class Hud {
 
     private clockTime: TextBlock; //GAME TIME
 
-    public canPlayerMove: boolean;
-
     constructor(scene: Scene, camera: UniversalCamera, canvas: HTMLCanvasElement) {
         this.scene = scene;
         this.camera = camera;
@@ -41,15 +39,13 @@ export class Hud {
         textOnScreen.fontFamily = "Viga";
         stackPanel.addControl(textOnScreen);
         this.clockTime = textOnScreen;
-        this.canPlayerMove = true;
     }
 
     public updateHud(): void {
         
     }
 
-    showCanvas(targetName: string): void {
-        this.canPlayerMove = false;
+    showCanvas(targetName: string): Rectangle {
         const imageRect = new Rectangle("titleContainer");
         imageRect.width = 0.8;
         imageRect.height = 0.8;
@@ -62,23 +58,15 @@ export class Hud {
 
             setTimeout(() => {
                 const displayedImage2 = new Image(targetName, "/public/sprites/"+targetName+"_1.png");
-                // displayedImage1.dispose();
                 imageRect.addControl(displayedImage2);
-                setTimeout(() => {
-                    imageRect.dispose();
-                    this.canPlayerMove = true;
-                }, 4000);
             }, 4000);
 
         } else {
             const startbg = new Image("startbg", "/public/sprites/"+targetName+".png");
             imageRect.addControl(startbg);
-    
-            setTimeout(() => {
-                imageRect.dispose();
-                this.canPlayerMove = true;
-            }, 5000)
         }
+        
+        return imageRect;
 
     }
 }
