@@ -28,7 +28,7 @@ export default class MainScene {
         scene.clearColor = new Color4(0,0,0);
 
         //--SOUNDS--
-        new Sound(
+        const bgSound = new Sound(
             "startSong",
             "/public/sounds/bgm.mp3",
             scene,
@@ -60,13 +60,17 @@ export default class MainScene {
                             scene.meshes.forEach((v) => {
                                 if (v.name === targetMeshName) {
                                     v.isVisible = true;
-                                    new Sound(
+                                    bgSound.setVolume(0, 2);
+                                    const memSound = new Sound(
                                         "souvenir",
                                         "/public/sounds/"+targetAudioName+".mp3",
                                         scene,
                                         null,
                                         {volume: 1, loop: false, autoplay: true},
                                     );
+                                    memSound.onEndedObservable.add((eventData, eventState) => {
+                                        bgSound.setVolume(1, 2);
+                                    })
                                     hud.showCanvas(targetMeshName);
                                 }
                             })
