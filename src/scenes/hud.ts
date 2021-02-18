@@ -61,14 +61,14 @@ export class Hud {
             imageRect.addControl(displayedImage1);
 
             setTimeout(() => {
-                displayedImage1.dispose();
                 const displayedImage2 = new Image(targetName, "/public/sprites/"+targetName+"_1.png");
+                // displayedImage1.dispose();
                 imageRect.addControl(displayedImage2);
                 setTimeout(() => {
                     imageRect.dispose();
                     this.canPlayerMove = true;
-                }, 3000);
-            }, 3000);
+                }, 4000);
+            }, 4000);
 
         } else {
             const startbg = new Image("startbg", "/public/sprites/"+targetName+".png");
@@ -77,7 +77,7 @@ export class Hud {
             setTimeout(() => {
                 imageRect.dispose();
                 this.canPlayerMove = true;
-            }, 4000)
+            }, 5000)
         }
 
     }
