@@ -35,7 +35,6 @@ export default class MainScene {
             null,
             {volume: 1, loop: true, autoplay: true }
         );
-        MainScene.createMainLight(scene);
         MainScene.createGameObjects(scene);
 
         const camera = new UniversalCamera('UniversalCamera', new Vector3(0, 4, 0), scene);
@@ -92,11 +91,6 @@ export default class MainScene {
             }
         });
         return [scene, hud];
-    }
-
-    private static createMainLight(scene: Scene): void {
-        const light1 = new PointLight("pointLight", new Vector3(0, 1, 10), scene);
-        light1.intensity = 0.2;
     }
 
     private static createGameObjects(scene: Scene): void {
