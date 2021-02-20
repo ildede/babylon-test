@@ -20,7 +20,7 @@ import manageMazeMaterial from "./functions/materials";
 
 export default class MainScene {
 
-    static build(engine: Engine, canvas: HTMLCanvasElement, goToWinScene: () => Promise<void>, goToLoseScene: () => Promise<void>): [Scene,Hud] {
+    static build(engine: Engine, canvas: HTMLCanvasElement, goToWinScene: () => Promise<void>, goToLoseScene: () => Promise<void>, input: string): [Scene, Hud] {
         const scene = new Scene(engine);
         scene.gravity = new Vector3(0, -1, 0);
         scene.collisionsEnabled = true;
@@ -43,6 +43,15 @@ export default class MainScene {
         camera.ellipsoid = new Vector3(2, 2, 2);
         camera.applyGravity = true;
         camera.checkCollisions = true;
+        camera.keysDown = [...camera.keysDown, 83]; //83 = S
+        camera.keysRight = [...camera.keysRight, 68]; //68 = D
+        if (input === "WASD") {
+            camera.keysUp = [...camera.keysUp, 87]; //87 = W
+            camera.keysLeft = [...camera.keysLeft, 65]; //65 = A
+        } else if (input === "ZQSD") {
+            camera.keysUp = [...camera.keysUp, 90]; //90 = Q
+            camera.keysLeft = [...camera.keysLeft, 81]; //81 = Z
+        }
 
         const hud = new Hud(scene, camera, canvas);
 
@@ -73,6 +82,15 @@ export default class MainScene {
                                         bgSound.setVolume(1, 2);
                                         rectangle.dispose();
                                         camera.inputs.addKeyboard();
+                                        camera.keysDown = [...camera.keysDown, 83]; //83 = S
+                                        camera.keysRight = [...camera.keysRight, 68]; //68 = D
+                                        if (input === "WASD") {
+                                            camera.keysUp = [...camera.keysUp, 87]; //87 = W
+                                            camera.keysLeft = [...camera.keysLeft, 65]; //65 = A
+                                        } else if (input === "ZQSD") {
+                                            camera.keysUp = [...camera.keysUp, 90]; //90 = Q
+                                            camera.keysLeft = [...camera.keysLeft, 81]; //81 = Z
+                                        }
                                         camera.inputs.addMouse();
                                         camera.attachControl(canvas, true);
                                     })

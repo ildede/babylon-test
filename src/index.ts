@@ -65,7 +65,7 @@ class App {
         //dont detect any inputs from this ui while the game is loading
         this.scene.detachControl();
 
-        const scene = StartScene.build(this.engine, this.canvas, () => this.goToGame());
+        const scene = StartScene.build(this.engine, this.canvas, (i: string) => this.goToGame(i));
 
         //--SCENE FINISHED LOADING--
         await scene.whenReadyAsync();
@@ -76,13 +76,13 @@ class App {
         this.state = State.START;
     }
 
-    private async goToGame(): Promise<void> {
+    private async goToGame(input = "WASD"): Promise<void> {
         this.engine.displayLoadingUI();
         //--SCENE SETUP--
         //dont detect any inputs from this ui while the game is loading
         this.scene.detachControl();
 
-        const [scene, hud] = MainScene.build(this.engine, this.canvas, () => this.goToWin(), () => this.goToLose());
+        const [scene, hud] = MainScene.build(this.engine, this.canvas, () => this.goToWin(), () => this.goToLose(), input);
         this.hud = hud;
 
         //--SCENE FINISHED LOADING--
