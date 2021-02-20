@@ -43,6 +43,7 @@ export default class MainScene {
         camera.ellipsoid = new Vector3(2, 2, 2);
         camera.applyGravity = true;
         camera.checkCollisions = true;
+        camera.speed = 0.7;
         camera.keysDown = [...camera.keysDown, 83]; //83 = S
         camera.keysRight = [...camera.keysRight, 68]; //68 = D
         if (input === "WASD") {
