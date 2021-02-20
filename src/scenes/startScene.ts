@@ -33,9 +33,9 @@ export default class StartScene {
         startBtn1.fontFamily = "Viga";
         startBtn1.width = 0.2;
         startBtn1.height = 0.1;
-        startBtn1.color = "white";
+        startBtn1.color = "blue";
         startBtn1.thickness = 2;
-        startBtn1.top = "50px"
+        startBtn1.top = "120px"
         startBtn1.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
         startBtn1.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
         imageRect.addControl(startBtn1);
@@ -44,9 +44,9 @@ export default class StartScene {
         startBtn2.fontFamily = "Viga";
         startBtn2.width = 0.2;
         startBtn2.height = 0.1;
-        startBtn2.color = "white";
+        startBtn2.color = "blue";
         startBtn2.thickness = 2;
-        startBtn2.top = "120px"
+        startBtn2.top = "200px"
         startBtn2.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
         startBtn2.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
         imageRect.addControl(startBtn2);
