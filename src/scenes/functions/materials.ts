@@ -86,11 +86,14 @@ function manageMazeMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
 }
 
 function manageEndDoorMaterial(meshes: AbstractMesh[], scene: Scene): void {
-    
+
     const doorMaterial = new StandardMaterial("doorMaterial", scene);
-        doorMaterial.diffuseColor = new Color3(0, 0, 0);
-    
-    meshes.forEach((mesh) => { mesh.material = doorMaterial; });
+    doorMaterial.diffuseColor = new Color3(0, 0, 0);
+
+    meshes.forEach((mesh) => {
+        mesh.material = doorMaterial;
+        mesh.isPickable = true;
+    });
 }
 
 function manageWallsMaterial(meshes: AbstractMesh[], scene: Scene): void {

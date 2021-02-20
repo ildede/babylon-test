@@ -59,10 +59,9 @@ export default class MainScene {
         scene.onPointerObservable.add((pointerInfo) => {
             switch (pointerInfo.type) {
                 case PointerEventTypes.POINTERPICK:
-                    console.log("POINTER PICK", pointerInfo);
                     if (pointerInfo.pickInfo && pointerInfo.pickInfo.distance < 15) {
                         const pickedMesh = pointerInfo.pickInfo.pickedMesh;
-                        if (pickedMesh != undefined && pickedMesh.isVisible && !pickedMesh.name.includes("mark")) {
+                        if (pickedMesh != undefined && pickedMesh.isVisible && pickedMesh.name.startsWith("canva") && !pickedMesh.name.includes("mark")) {
                             pickedMesh.isVisible = false;
                             const targetMeshName = pickedMesh.name.split("_").join("_mark_");
                             const targetAudioName = "memory_"+pickedMesh.name.split("_")[1];
@@ -97,8 +96,19 @@ export default class MainScene {
                                     })
                                 }
                             })
+                            const memoriesCollected = scene.meshes.filter(value => value.name.startsWith('canva_mark') && value.isVisible).length;
+                            if (memoriesCollected === 6) {
+                                scene.meshes.forEach((v) => {
+                                    if (v.name.startsWith("end_door")) {
+                                        const canvaMaterial = new StandardMaterial("endDoorMaterial", scene);
+                                        canvaMaterial.specularColor = new Color3(0.1, 0.1, 0.1);
+                                        canvaMaterial.emissiveColor = new Color3(0.1,0.3,0.1);
+                                        v.material = canvaMaterial;
+                                    }
+                                })
+                            }
                         }
-                        if (pickedMesh != undefined && pickedMesh.isVisible && pickedMesh.name.includes("mark")) {
+                        if (pickedMesh != undefined && pickedMesh.isVisible && pickedMesh.name.startsWith("canva") && pickedMesh.name.includes("mark")) {
                             const targetMeshName = pickedMesh.name;
                             const targetAudioName = "memory_"+pickedMesh.name.split("_")[2];
                             scene.meshes.forEach((v) => {
@@ -132,6 +142,12 @@ export default class MainScene {
                                 }
                             })
                         }
+                        if (pickedMesh != undefined && pickedMesh.name.startsWith("end_door")) {
+                            const memoriesCollected = scene.meshes.filter(value => value.name.startsWith('canva_mark') && value.isVisible).length;
+                            if (memoriesCollected === 6) {
+                                goToWinScene();
+                            }
+                        }
                     }
                     break;
             }
@@ -142,10 +158,6 @@ export default class MainScene {
             if (keyEnabled && ev.key === 'W') {
                 keyEnabled = false;
                 goToWinScene();
-            }
-            if (keyEnabled && ev.key === 'L') {
-                keyEnabled = false;
-                goToLoseScene();
             }
         });
         return [scene, hud];
@@ -166,50 +178,4 @@ export default class MainScene {
         );
     }
 
-    private static createEndCanvasObjects(scene: Scene): Mesh[] {
-        const f = new Vector4(0,0, 1, 1); // front image = half the whole image along the width
-        const b = new Vector4(0,0, 0, 1); // back image = second half along the width
-
-        const appartNormale = MeshBuilder.CreatePlane("done_canva_001",
-            {height:3.5, width: 6, sideOrientation: Mesh.DOUBLESIDE, frontUVs: f, backUVs: b},
-            scene);
-        appartNormale.position = new Vector3(-15, 3, 50);
-        appartNormale.billboardMode = Mesh.BILLBOARDMODE_Y;
-        appartNormale.isVisible = false;
-        const appartNormaleMat = new StandardMaterial("", scene);
-        appartNormaleMat.diffuseTexture = new Texture("/public/sprites/canva_mark_001.png", scene);
-        appartNormale.material = appartNormaleMat;
-
-        const appartNuitLighter = MeshBuilder.CreatePlane("done_canva_002",
-            {height:3.5, width: 6, sideOrientation: Mesh.DOUBLESIDE, frontUVs: f, backUVs: b},
-            scene);
-        appartNuitLighter.position = new Vector3(-15, 3, 40);
-        appartNuitLighter.billboardMode = Mesh.BILLBOARDMODE_Y;
-        appartNuitLighter.isVisible = false;
-        const appartNuitLighterMat = new StandardMaterial("", scene);
-        appartNuitLighterMat.diffuseTexture = new Texture("/public/sprites/appart_nuit_lighter.png", scene);
-        appartNuitLighter.material = appartNuitLighterMat;
-
-        const jardinLapinVieilli = MeshBuilder.CreatePlane("done_canva_003",
-            {height:3.5, width: 6, sideOrientation: Mesh.DOUBLESIDE, frontUVs: f, backUVs: b},
-            scene);
-        jardinLapinVieilli.position = new Vector3(-15, 3, 30);
-        jardinLapinVieilli.billboardMode = Mesh.BILLBOARDMODE_Y;
-        jardinLapinVieilli.isVisible = false;
-        const jardinLapinVieilliMat = new StandardMaterial("", scene);
-        jardinLapinVieilliMat.diffuseTexture = new Texture("/public/sprites/jardin_lapin_vieilli.png", scene);
-        jardinLapinVieilli.material = jardinLapinVieilliMat;
-
-        const souvguerre = MeshBuilder.CreatePlane("done_canva_004",
-            {height:3.5, width: 6, sideOrientation: Mesh.DOUBLESIDE, frontUVs: f, backUVs: b},
-            scene);
-        souvguerre.position = new Vector3(-15, 3, 20);
-        souvguerre.billboardMode = Mesh.BILLBOARDMODE_Y;
-        souvguerre.isVisible = false;
-        const souvguerreMat = new StandardMaterial("", scene);
-        souvguerreMat.diffuseTexture = new Texture("/public/sprites/souvguerre.png", scene);
-        souvguerre.material = souvguerreMat;
-
-        return [appartNormale, appartNuitLighter, jardinLapinVieilli, souvguerre];
-    }
 }
