@@ -131,7 +131,7 @@ function manageCanvasMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
         canvaMarkMaterial.specularColor = new Color3(0, 0, 0);
         canvaMarkMaterial.emissiveColor = new Color3(0.1,0.1,0.1);
         mesh.isVisible = false;
-        mesh.isPickable = false;
+        mesh.isPickable = true;
         mesh.material = canvaMarkMaterial;
     });
 }

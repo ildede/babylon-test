@@ -62,13 +62,47 @@ export default class MainScene {
                     console.log("POINTER PICK", pointerInfo);
                     if (pointerInfo.pickInfo && pointerInfo.pickInfo.distance < 15) {
                         const pickedMesh = pointerInfo.pickInfo.pickedMesh;
-                        if (pickedMesh != undefined && pickedMesh.isVisible) {
+                        if (pickedMesh != undefined && pickedMesh.isVisible && !pickedMesh.name.includes("mark")) {
                             pickedMesh.isVisible = false;
                             const targetMeshName = pickedMesh.name.split("_").join("_mark_");
                             const targetAudioName = "memory_"+pickedMesh.name.split("_")[1];
                             scene.meshes.forEach((v) => {
                                 if (v.name === targetMeshName) {
                                     v.isVisible = true;
+                                    bgSound.setVolume(0, 2);
+                                    camera.inputs.clear();
+                                    const memSound = new Sound(
+                                        "souvenir",
+                                        "/public/sounds/"+targetAudioName+".mp3",
+                                        scene,
+                                        null,
+                                        {volume: 1, loop: false, autoplay: true},
+                                    );
+                                    const rectangle = hud.showCanvas(targetMeshName);
+                                    memSound.onEndedObservable.add((eventData, eventState) => {
+                                        bgSound.setVolume(1, 2);
+                                        rectangle.dispose();
+                                        camera.inputs.addKeyboard();
+                                        camera.keysDown = [...camera.keysDown, 83]; //83 = S
+                                        camera.keysRight = [...camera.keysRight, 68]; //68 = D
+                                        if (input === "WASD") {
+                                            camera.keysUp = [...camera.keysUp, 87]; //87 = W
+                                            camera.keysLeft = [...camera.keysLeft, 65]; //65 = A
+                                        } else if (input === "ZQSD") {
+                                            camera.keysUp = [...camera.keysUp, 90]; //90 = Q
+                                            camera.keysLeft = [...camera.keysLeft, 81]; //81 = Z
+                                        }
+                                        camera.inputs.addMouse();
+                                        camera.attachControl(canvas, true);
+                                    })
+                                }
+                            })
+                        }
+                        if (pickedMesh != undefined && pickedMesh.isVisible && pickedMesh.name.includes("mark")) {
+                            const targetMeshName = pickedMesh.name;
+                            const targetAudioName = "memory_"+pickedMesh.name.split("_")[2];
+                            scene.meshes.forEach((v) => {
+                                if (v.name === targetMeshName) {
                                     bgSound.setVolume(0, 2);
                                     camera.inputs.clear();
                                     const memSound = new Sound(
