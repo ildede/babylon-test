@@ -8,8 +8,6 @@ export class Hud {
     private hudMenu: AdvancedDynamicTexture;
     private canvas: HTMLCanvasElement;
 
-    private clockTime: TextBlock; //GAME TIME
-
     constructor(scene: Scene, camera: UniversalCamera, canvas: HTMLCanvasElement) {
         this.scene = scene;
         this.camera = camera;
@@ -25,20 +23,6 @@ export class Hud {
         stackPanel.top = "14px";
         stackPanel.verticalAlignment = 0;
         this.hudMenu.addControl(stackPanel);
-
-        //Game timer text
-        const textOnScreen = new TextBlock();
-        textOnScreen.name = "clock";
-        textOnScreen.textHorizontalAlignment = TextBlock.HORIZONTAL_ALIGNMENT_CENTER;
-        textOnScreen.fontSize = "48px";
-        textOnScreen.color = "white";
-        textOnScreen.text = "Shift+W to go to Win, Shift+L to go to Lose";
-        textOnScreen.resizeToFit = true;
-        textOnScreen.height = "96px";
-        textOnScreen.width = "220px";
-        textOnScreen.fontFamily = "Viga";
-        stackPanel.addControl(textOnScreen);
-        this.clockTime = textOnScreen;
     }
 
     public updateHud(): void {
