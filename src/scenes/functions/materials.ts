@@ -1,4 +1,4 @@
-import {AbstractMesh, Color3, MultiMaterial, Nullable, StandardMaterial, Texture} from "@babylonjs/core";
+import {AbstractMesh, Animation, Color3, MultiMaterial, Nullable, StandardMaterial, Texture} from "@babylonjs/core";
 import {Scene} from "@babylonjs/core/scene";
 
 export default function manageMaterials(meshes: AbstractMesh[], scene: Scene): void {
@@ -93,6 +93,16 @@ function manageEndDoorMaterial(meshes: AbstractMesh[], scene: Scene): void {
     meshes.forEach((mesh) => {
         mesh.material = doorMaterial;
         mesh.isPickable = true;
+        if (mesh.name === 'end_door_001') {
+            const frameRate = 10;
+            const ySlide = new Animation("ySlide", "position.y", frameRate, Animation.ANIMATIONTYPE_FLOAT);
+            const keyFrames = [];
+            keyFrames.push({frame: 0, value: 0});
+            keyFrames.push({frame: frameRate, value: -4});
+            keyFrames.push({frame: 2 * frameRate, value: -8});
+            ySlide.setKeys(keyFrames);
+            mesh.animations.push(ySlide);
+        }
     });
 }
 
