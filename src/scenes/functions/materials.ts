@@ -141,8 +141,8 @@ function manageCanvasMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
 
 function managePathsMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
 
-    const pathMarkMaterial = new StandardMaterial("wallMaterial", scene);
-    pathMarkMaterial.diffuseColor = new Color3(0, 0, 0);
+    const pathMarkMaterial = new StandardMaterial("pathMarkMaterial", scene);
+    pathMarkMaterial.emissiveColor = new Color3(0,0,0);
 
     meshes.forEach((mesh) => { mesh.material = pathMarkMaterial; });
 }
