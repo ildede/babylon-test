@@ -12,7 +12,7 @@ import {
     Skeleton,
     Sound, StandardMaterial, Texture,
     TransformNode,
-    UniversalCamera
+    UniversalCamera, Animation
 } from "@babylonjs/core";
 import {SceneLoader} from "@babylonjs/core/Loading/sceneLoader";
 import {Hud} from "./hud";
@@ -100,10 +100,15 @@ export default class MainScene {
                             if (memoriesCollected === 6) {
                                 scene.meshes.forEach((v) => {
                                     if (v.name.startsWith("end_door")) {
-                                        const canvaMaterial = new StandardMaterial("endDoorMaterial", scene);
-                                        canvaMaterial.specularColor = new Color3(0.1, 0.1, 0.1);
-                                        canvaMaterial.emissiveColor = new Color3(0.1,0.3,0.1);
-                                        v.material = canvaMaterial;
+                                        if (['end_door_001', 'end_door_002'].includes(v.name)) {
+                                            const endDoorMaterial = new StandardMaterial("endDoorMaterial", scene);
+                                            endDoorMaterial.emissiveColor = new Color3(0.0,0.1,0.1);
+                                            v.material = endDoorMaterial;
+                                        } else {
+                                            const endWallMaterial = new StandardMaterial("endWallMaterial", scene);
+                                            endWallMaterial.emissiveColor = new Color3(0.1,0.3,0.1);
+                                            v.material = endWallMaterial;
+                                        }
                                     }
                                 })
                             }
@@ -142,7 +147,10 @@ export default class MainScene {
                                 }
                             })
                         }
-                        if (pickedMesh != undefined && pickedMesh.name.startsWith("end_door")) {
+                        if (pickedMesh != undefined && pickedMesh.name.startsWith("end_door_001")) {
+                            scene.beginAnimation(pickedMesh, 0, 20, false);
+                        }
+                        if (pickedMesh != undefined && pickedMesh.name.startsWith("end_door_002")) {
                             const memoriesCollected = scene.meshes.filter(value => value.name.startsWith('canva_mark') && value.isVisible).length;
                             if (memoriesCollected === 6) {
                                 goToWinScene();
