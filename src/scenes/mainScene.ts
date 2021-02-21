@@ -44,6 +44,14 @@ export default class MainScene {
         camera.applyGravity = true;
         camera.checkCollisions = true;
         camera.speed = 0.7;
+        camera.onCollide = (mesh: AbstractMesh) => {
+            if (mesh.name.startsWith('path_mark')) {
+                const pathMarkMaterial = new StandardMaterial("pathMarkMaterialOn", scene);
+                pathMarkMaterial.emissiveColor = new Color3(0.1,0.1,0.1);
+                mesh.material = pathMarkMaterial;
+                mesh.checkCollisions = false;
+            }
+        }
         camera.keysDown = [...camera.keysDown, 83]; //83 = S
         camera.keysRight = [...camera.keysRight, 68]; //68 = D
         if (input === "WASD") {

@@ -148,5 +148,8 @@ function managePathsMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
     const pathMarkMaterial = new StandardMaterial("pathMarkMaterial", scene);
     pathMarkMaterial.emissiveColor = new Color3(0,0,0);
 
-    meshes.forEach((mesh) => { mesh.material = pathMarkMaterial; });
+    meshes.forEach((mesh) => {
+        mesh.material = pathMarkMaterial;
+        mesh.checkCollisions = true;
+    });
 }
