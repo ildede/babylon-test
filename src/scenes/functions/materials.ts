@@ -116,12 +116,6 @@ function manageCanvasMaterialAndCanvasLight(meshes: AbstractMesh[], scene: Scene
         canvaMaterial.emissiveColor = new Color3(0.1,0.1,0.1);
 
         mesh.material = canvaMaterial;
-        // const light = new PointLight("light_"+mesh.name, mesh.position, scene);
-        // // const light = new SpotLight("light_"+mesh.name, mesh.position, new Vector3(0, -1, 0), Math.PI / 2, 10, scene);
-        // light.diffuse = new Color3(0, 1, 0);
-        // light.specular = new Color3(0, 1, 0);
-        // light.intensity = 0.05;
-        // light.parent = mesh;
     })
 }
 
