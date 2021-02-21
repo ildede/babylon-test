@@ -153,13 +153,45 @@ export default class MainScene {
             }
         });
 
-        let keyEnabled = true;
-        window.addEventListener("keydown", (ev: KeyboardEvent) => {
-            if (keyEnabled && ev.key === 'W') {
-                keyEnabled = false;
-                goToWinScene();
+        // let keyEnabled = true;
+        // window.addEventListener("keydown", (ev: KeyboardEvent) => {
+        //     if (keyEnabled && ev.key === 'W') {
+        //         keyEnabled = false;
+        //         goToWinScene();
+        //     }
+        // });
+
+        let isLocked = false;
+        // On click event, request pointer lock
+        scene.onPointerDown = function (evt) {
+            //true/false check if we're locked, faster than checking pointerlock on each single click.
+            if (!isLocked) {
+                canvas.requestPointerLock = canvas.requestPointerLock || canvas.msRequestPointerLock || canvas.mozRequestPointerLock || canvas.webkitRequestPointerLock;
+                if (canvas.requestPointerLock) {
+                    canvas.requestPointerLock();
+                }
             }
-        });
+        };
+        // Event listener when the pointerlock is updated (or removed by pressing ESC for example).
+        const pointerlockchange = function () {
+            // @ts-ignore
+            const controlEnabled = document.mozPointerLockElement || document.webkitPointerLockElement || document.msPointerLockElement || document.pointerLockElement || null;
+            // If the user is already locked
+            if (!controlEnabled) {
+                //camera.detachControl(canvas);
+                isLocked = false;
+            } else {
+                //camera.attachControl(canvas);
+                isLocked = true;
+            }
+        };
+
+        // Attach events to the document
+        document.addEventListener("pointerlockchange", pointerlockchange, false);
+        document.addEventListener("mspointerlockchange", pointerlockchange, false);
+        document.addEventListener("mozpointerlockchange", pointerlockchange, false);
+        document.addEventListener("webkitpointerlockchange", pointerlockchange, false);
+
         return [scene, hud];
     }
 
