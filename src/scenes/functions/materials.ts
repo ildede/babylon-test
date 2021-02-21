@@ -62,19 +62,15 @@ function manageMazeMaterial(mesh: Nullable<AbstractMesh>, scene: Scene): void {
 
         mazeGroundsMaterial.diffuseTexture = new Texture('/public/textures/mazegrounds_diffuse.png', scene);
         mazeGroundsMaterial.emissiveTexture = new Texture('/public/textures/mazegrounds_emissive.jpg', scene);
-        mazeGroundsMaterial.emissiveColor = new Color3(0.5,0.5,0.5);
-        // @ts-ignore
-        mazeGroundsMaterial.diffuseTexture.uScale = 10;
-        // @ts-ignore
-        mazeGroundsMaterial.diffuseTexture.vScale = 10;
+        mazeGroundsMaterial.emissiveColor = new Color3(0.1,0.1,0.1);
 
         mazeWallsMaterial.diffuseTexture = new Texture('/public/textures/mazewalls_diffuse.png', scene);
         // @ts-ignore
-        mazeWallsMaterial.diffuseTexture.uScale = 4;
+        mazeWallsMaterial.diffuseTexture.uScale = 3;
         mazeWallsMaterial.emissiveTexture = new Texture('/public/textures/mazewalls_emissive.jpg', scene);
-        mazeWallsMaterial.emissiveColor = new Color3(0.25,0.25,0.25);
+        mazeWallsMaterial.emissiveColor = new Color3(0.1,0.1,0.1);
         // @ts-ignore
-        mazeWallsMaterial.emissiveTexture.vScale = 4;
+        mazeWallsMaterial.emissiveTexture.vScale = 3;
 
         mazeGroundsMaterial.diffuseTexture.hasAlpha = mazeWallsMaterial.diffuseTexture.hasAlpha = true;
 
@@ -136,7 +132,7 @@ function manageCanvasMarksMaterial(meshes: AbstractMesh[], scene: Scene): void {
         canvaMarkMaterial.diffuseTexture = new Texture("/public/sprites/"+mesh.name+".png", scene);
         canvaMarkMaterial.emissiveTexture = new Texture("/public/sprites/"+mesh.name+".png", scene);
         canvaMarkMaterial.specularColor = new Color3(0, 0, 0);
-        canvaMarkMaterial.emissiveColor = new Color3(0.1,0.1,0.1);
+        canvaMarkMaterial.emissiveColor = new Color3(0.05,0.05,0.05);
         mesh.isVisible = false;
         mesh.isPickable = true;
         mesh.material = canvaMarkMaterial;
